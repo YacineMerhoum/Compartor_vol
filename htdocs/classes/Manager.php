@@ -44,6 +44,18 @@ class Manager
         $reviewArray = $preparedRequest->fetchAll(PDO::FETCH_ASSOC);
         return $reviewArray;
     }
+
+    public function getAllDestinationId() {
+        $getDestinationId = "SELECT * FROM destination";
+
+        $statement = $this->connexion->prepare($getDestinationId);
+        $statement->execute();
+
+        $datalistDestination = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $datalistDestination;
+    }
+        
     
     public function getAllDestinationId() {
         $getDestinationId = "SELECT * FROM destination WHERE id";

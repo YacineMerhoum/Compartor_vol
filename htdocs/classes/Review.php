@@ -6,14 +6,16 @@ class Review
     private string $author;
     private int $tourOperatorId;
     private int $note;
+    private string $date;
 
-    public function __construct($id , $message, $author,$note, $tourOperatorId)
+    public function __construct($id , $message, $author,$note,$date, $tourOperatorId)
     {
         $this->id = $id;
         $this->message = $message;
         $this->author = $author;
         $this->note = $note;
         $this->tourOperatorId = $tourOperatorId;
+        $this->date = $date;
     }
     public function getId()
     {
@@ -54,6 +56,14 @@ class Review
     public function setNote($note)
     {
         $this->note = $note;
+    }
+    public function getDate()
+    {
+        return $this->date;
+    }
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 
 }

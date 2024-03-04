@@ -6,19 +6,14 @@ $manager = new Manager($connexion);
 $destinations = $manager->getAllDestination();
 $destinationsObject = [];
 
-foreach ($destinations as $destination) {
-    $objectDestination = new Destination(
+foreach ($destinations as $destinationData) {
+    $objectDestination = new Destination($destinationData);
 
-        $destination["location"],
-        $destination["photo"],
-        $destination["texte"],
-        $destination["price"],
-        $destination["tour_operator_id"],
-        $destination["logo"]
-    );
-    $objectDestination->setId($destination["id"]);
+    
     array_push($destinationsObject, $objectDestination);
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -84,20 +79,24 @@ foreach ($destinations as $destination) {
     <section class="sectionCards1">
         <div class="container text-center mt-5">
             <div class="row">
-                <?php foreach ($destinationsObject as $key) { ?>
+                <?php foreach ($destinationsObject as $destination) { ?>
 
                     <div class="col-lg-4 col-md-6 col-sm-12">
+
+                    <a href="./destination.php?id=<?= $destination->getId()?>">
+
                         <div class="card shadow-lg mb-5" style="width: 25rem; height: 30rem;">
-                            <img src="<?= $key->getPhoto() ?>" class="card-img-top">
+                            <img src="<?= $destination->getPhoto() ?>" class="card-img-top"></a>
                             <div class="card-body">
-                                <h5><?= $key->getLocation() ?></h5>
-                                <p class="card-text"><?= $key->getTexte() ?></p>
+                                <h5><?= $destination->getLocation() ?></h5>
+                                <p class="card-text"><?= $destination->getTexte() ?></p>
                                 <div class="d-flex justify-content-between">
-                                    <p class="text-info fs-3"><?= $key->getPrice() ?>€</p>
-                                    <a href=""><img src="<?= $key->getLogo() ?>" style="height: 25px;"></a>
+                                    <p class="text-info fs-3"><?= $destination->getPrice() ?>€</p>
+                                    <img src="<?= $destination->getLogo() ?>" style="height: 25px;">
                                 </div>
                             </div>
                         </div>
+                
                     </div>
                 <?php } ?>
             </div>
