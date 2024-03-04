@@ -83,58 +83,40 @@ foreach ($destinations as $destination) {
     SECTIONS OFFRES BDD CARDS -->
     <section class="sectionCards1">
         <div class="container text-center mt-5">
-            <div class="row align-items-center">
-                <div class="col-lg-4">
-                    <?php foreach ($destinationsObject as $key) { ?>
+            <div class="row">
+                <?php foreach ($destinationsObject as $key) { ?>
 
-                        <div class="card shadow-lg" style="width: 25rem;">
-                            <img src="<?= $key->getPhoto() ?>" class="card-img-top img-fluid" alt="...">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="card shadow-lg mb-5" style="width: 25rem; height: 30rem;">
+                            <img src="<?= $key->getPhoto() ?>" class="card-img-top">
                             <div class="card-body">
                                 <h5><?= $key->getLocation() ?></h5>
                                 <p class="card-text"><?= $key->getTexte() ?></p>
                                 <div class="d-flex justify-content-between">
                                     <p class="text-info fs-3"><?= $key->getPrice() ?>€</p>
-                                    <a href=""><img src="<?= $key->getLogo()?>" style="height: 25px;"></a>
-
-
-
+                                    <a href=""><img src="<?= $key->getLogo() ?>" style="height: 25px;"></a>
                                 </div>
                             </div>
                         </div>
-                </div>
-            <?php } ?>
-
-            <!-- <div class="col-lg-4 col-sm-12 ">
-                    <div class="card" style="width: 25rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-sm-12">
-                    <div class="card" style="width: 25rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
-        </div> -->
-
-
-
-
+        </div>
     </section>
+    <!-- RECHERCHE DE VOYAGE A TRAVAILLER  -->
+    <div class="search d-flex justify-content-center mb-5">
+        <form class="d-flex justify-content-center" style="width: 30%;" role="search">
+            <input name="search" class="form-control me-2" type="search" placeholder="Rechercher une destination" aria-label="Search">
+            <button class="btn btn-primary text-warning" type="submit"><strong>Rechercher</strong></button>
+        </form>
+    </div>
+
+    <footer class="d-flex align-items-end justify-content-center">
 
 
 
-
-
-
-
+        <h4 class="text-white"><strong>Skyeagle.com Yacine Sylvain et fils © Copyright 2024</strong></h4>
+    </footer>
 
 
 

@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap'); 
+.card-review {
+    font-family: "Oswald", sans-serif;
+    img {
+       width: 2.5rem;
+       height: 2.5rem;
+    }
+ }
+ 

@@ -33,6 +33,17 @@ class Manager
         $operatorArray  = $preparedRequest->fetchAll(PDO::FETCH_ASSOC);
         return $operatorArray;
     }
+
+    // NOTE AVIS REVIEWS ??
+    public function getReviewByOperator()
+    {
+        $preparedRequest = $this->connexion->prepare("SELECT * FROM `review`");
+        $preparedRequest->execute([
+
+        ]);
+        $reviewArray = $preparedRequest->fetchAll(PDO::FETCH_ASSOC);
+        return $reviewArray;
+    }
         
 
 }

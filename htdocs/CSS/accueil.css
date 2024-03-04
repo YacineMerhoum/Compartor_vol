@@ -11,6 +11,8 @@
     height: 650px;
     
   }
+  
+  
   .titleHeader{
     font-family: "Oswald", sans-serif;
     color: white;
@@ -19,8 +21,21 @@
 /* 
   LA SECTION DES CARTES  */
   .sectionCards1 {
-    height: 500px;
+    height: 1100px;
   }
+  @media only screen and (max-width: 768px) {
+    .sectionCards1 {
+      height: 1600px;
+    }
+  }
+  
+
+  @media only screen and (max-width: 576px) {
+    .sectionCards1 {
+      height: 2500px; 
+    }
+  }
+
 
   /* HOVER DES CARDS */
   .card{
@@ -29,6 +44,27 @@
   }
 
   .card:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: 1s;
   }
+
+footer {
+  background-image: url(../medias/footer.png);
+  background-size:cover;
+  background-position: 30%;
+  height: 750px;
+  font-family: "Oswald", sans-serif;
+}
+/* @media only screen and (max-width: 768px) {
+  footer {
+    height: 500px; 
+  }
+}
+
+
+@media only screen and (max-width: 576px) {
+  footer {
+    height: 300px; 
+    background-position: center; 
+  }
+} */

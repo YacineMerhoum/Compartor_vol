@@ -5,12 +5,14 @@ class Review
     private string $message;
     private string $author;
     private int $tourOperatorId;
+    private int $note;
 
-    public function __construct($id , $message, $author, $tourOperatorId)
+    public function __construct($id , $message, $author,$note, $tourOperatorId)
     {
         $this->id = $id;
         $this->message = $message;
         $this->author = $author;
+        $this->note = $note;
         $this->tourOperatorId = $tourOperatorId;
     }
     public function getId()
@@ -44,6 +46,14 @@ class Review
     public function setTourOperatorId($tourOperatorId)
     {
         $this->tourOperatorId = $tourOperatorId;
+    }
+    public function getNote()
+    {
+        return $this->note;
+    }
+    public function setNote($note)
+    {
+        $this->note = $note;
     }
 
 }
