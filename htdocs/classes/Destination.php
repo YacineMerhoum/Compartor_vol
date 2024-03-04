@@ -10,15 +10,15 @@ class Destination
     private int $TourOperatorId;
     private string $logo;
 
-    public function __construct($location, $photo, $texte, $price, $TourOperatorId, $logo)
+    public function __construct($data)
     {
+        $this->setId($data["id"]);
+        $this->setLocation($data["location"]);
+        $this->setPhoto($data["photo"]);
+        $this->setTexte($data["texte"]);
+        $this->setPrice($data["price"]);
+        $this->setLogo($data["logo"]);
         
-        $this->location = $location;
-        $this->photo = $photo;
-        $this->texte = $texte;
-        $this->price = $price;
-        $this->TourOperatorId = $TourOperatorId;
-        $this->logo = $logo;
 
     }
 
@@ -26,8 +26,11 @@ class Destination
     {
         return $this->id;
     }
-    public function setId($id)
+    public function setId(int $id)
     {
+        if($id == 0){
+            die;
+        }
         $this->id = $id;
     }
     public function getPhoto()

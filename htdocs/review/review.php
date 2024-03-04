@@ -1,6 +1,6 @@
 <?php
-include_once "./connexion/connexion.php";
-include_once "./connexion/autoloader.php";
+include_once "../connexion/connexion.php";
+include_once "../connexion/autoloader.php";
 $manager = new Manager($connexion);
 $reviews = $manager->getReviewByOperator();
 $reviewsObject = [];
@@ -11,6 +11,7 @@ foreach ($reviews as $review) {
         $review["message"],
         $review["author"],
         $review["note"],
+        $review["date"],
         $review["tour_operator_id"]
     );
     array_push($reviewsObject, $objectReviews);
@@ -41,10 +42,10 @@ foreach ($reviews as $review) {
                <div class="card-header pb-0 d-flex flex-row justify-content-between align-items-center">
                   <div class="d-flex align-items-center">
                      <img class="rounded-circle me-2"
-                          src="https://via.placeholder.com/256/fe669e/fff.png" />
+                          src="../medias/logo_comparator_premium_seul.png" />
                      <div class="d-flex flex-column justify-content-center align-items-start fs-5 lh-sm">
                         <b class="text-primary"><?= $key->getAuthor()?></b>
-                        <small class="text-muted">14th Sept 2021</small>
+                        <small class="text-muted"><?= $key->getDate()?></small>
                      </div>
                   </div>
                   <span class="fs-1 my-0 fw-bolder text-success"><?= $key->getNote()?></span>
