@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap'); 
+.navbar{
+    font-family: "Oswald", sans-serif;
+    
+
+}
+
+.headerTop {
+    background-image: url(../medias/header/header.png);
+    background-size: cover;
+    height: 650px;
+    
+  }
+  .titleHeader{
+    font-family: "Oswald", sans-serif;
+    color: white;
+    font-size: 5rem;
+  }
+/* 
+  LA SECTION DES CARTES  */
+  .sectionCards1 {
+    height: 500px;
+  }
+
+  /* HOVER DES CARDS */
+  .card{
+    font-family: "Oswald", sans-serif;
+    transition: 1s; 
+  }
+
+  .card:hover{
+    transform: scale(1.1);
+    transition: 1s;
+  }

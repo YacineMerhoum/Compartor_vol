@@ -1,0 +1,11 @@
+#loader {
+    background-image: url(../medias/wallpapper/maldives2.jpg);
+   
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.7); 
+    z-index: 9999; 
+    transition: opacity 0.5s ease-out; 
+    display: none;
+    animation: TestLoader 0.2s ease 0s 1 normal forwards;
+}
