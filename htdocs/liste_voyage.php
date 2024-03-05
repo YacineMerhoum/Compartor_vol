@@ -4,18 +4,16 @@ include_once "./connexion/autoloader.php";
 
 
 
-$manager = new Manager($connexion);
-$destinations = $manager->getAllDestination();
-$destinationsObject = [];
+$manager2 = new Manager2($connexion);
+$destinations = $manager2->getAllDestinationId();
+$destinationsList = [];
 
 foreach ($destinations as $destinationData) {
     $objectDestination = new Destination($destinationData);
-    
 
     
-    array_push($destinationsObject, $objectDestination);
-} 
-
+    array_push($destinationsList, $objectDestination);
+}
 
 
 ?>
@@ -28,7 +26,7 @@ foreach ($destinations as $destinationData) {
     <link rel="stylesheet" href="./CSS/accueil.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Liste des destinations</title>
 </head>
 
 <body>
@@ -54,10 +52,10 @@ foreach ($destinations as $destinationData) {
                             <a class="nav-link active text-warning m-5 " aria-current="page" href="#"><strong>Promotion</strong></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="#"><strong>Voyages</strong></a>
+                            <a class="nav-link text-info m-5" href="./liste_voyage.php"><strong>Voyages</strong></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="./liste_voyage.php"><strong>Opérateurs</strong></a>
+                            <a class="nav-link text-info m-5" href="#"><strong>Opérateurs</strong></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-info m-5" href="#"><strong>Services</strong></a>
@@ -67,8 +65,19 @@ foreach ($destinations as $destinationData) {
             </div>
         </nav>
     </header>
-    <section class="headerTop">
-        <div class=" d-flex justify-content-end">
+
+<!--  -->
+
+<!-- 
+    $updatedRequest = $this->connexion->prepare("SELECT * FROM phrase WHERE `id` = ROUND( RAND()");
+$updatedRequest->execute();
+$randomPhrase = $updatedRequest->fetch(PDO::FETCH_ASSOC);
+
+echo $randomPhrase; -->
+
+    <section>
+        <div><img class="size-20" src="../images/<?= $data["photo"] ?>" alt=""></div>
+        <div class="d-flex justify-content-end">
             <h1 class="titleHeader mt-2 me-1">Le meilleur comparateur de la toile</h1>
         </div>
         <div class="d-flex align-items-end flex-column">
@@ -77,49 +86,54 @@ foreach ($destinations as $destinationData) {
             <button type="button" class="btn btn-primary text-warning mt-2"><strong>Découvrez nos offres Premium</strong></button>
         </div>
     </section>
-    <!-- 
-    SECTIONS OFFRES BDD CARDS -->
-    <section class="sectionCards1">
-        <div class="container text-center mt-5">
-            <div class="row">
-                <?php foreach ($destinationsObject as $destination) { ?>
+ 
 
-                    <div class="col-lg-4 col-md-6 col-sm-12">
 
-                    <a href="./destination.php?id=<?=$destination->getId()?> ">
-                 
-
-                        <div class="card shadow-lg mb-5" style="width: 25rem; height: 30rem;">
-                            <img src="<?= $destination->getPhoto() ?>" class="card-img-top"></a>
-                            <div class="card-body">
-                                <h5><?= $destination->getLocation() ?></h5>
-                                <p class="card-text"><?= $destination->getTexte() ?></p>
-                                <div class="d-flex justify-content-between">
-                                    <p class="text-info fs-3"><?= $destination->getPrice() ?>€</p>
-                                    <img src="<?= $destination->getLogo() ?>" style="height: 25px;">
-                                </div>
-                            </div>
+    <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A list item
+    <span class="badge text-bg-primary rounded-pill">14</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A second list item
+    <span class="badge text-bg-primary rounded-pill">2</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A third list item
+    <span class="badge text-bg-primary rounded-pill">1</span>
+  </li>
+</ul>
+            <!-- <div class="col-lg-4 col-sm-12 ">
+                    <div class="card" style="width: 25rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
-                
                     </div>
-                <?php } ?>
+                </div>
+
+                <div class="col-lg-4 col-sm-12">
+                    <div class="card" style="width: 25rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div> -->
+
+
+
+
     </section>
-    <!-- RECHERCHE DE VOYAGE A TRAVAILLER  -->
-    <div class="search d-flex justify-content-center mb-5">
-        <form class="d-flex justify-content-center" style="width: 30%;" role="search">
-            <input name="search" class="form-control me-2" type="search" placeholder="Rechercher une destination" aria-label="Search">
-            <button class="btn btn-primary text-warning" type="submit"><strong>Rechercher</strong></button>
-        </form>
-    </div>
-
-    <footer class="d-flex align-items-end justify-content-center">
 
 
 
-        <h4 class="text-white"><strong>Skyeagle.com Yacine Sylvain et fils © Copyright 2024</strong></h4>
-    </footer>
+
+
+
+
 
 
 

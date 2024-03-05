@@ -79,7 +79,6 @@ class Manager
         return $review;
 
     }
-        
 
 }
         
