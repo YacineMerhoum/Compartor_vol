@@ -55,8 +55,5 @@ class Manager
 
         return $datalistDestination;
     }
-        
-
-
 
 }

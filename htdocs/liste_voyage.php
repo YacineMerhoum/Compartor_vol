@@ -2,14 +2,19 @@
 include_once "./connexion/connexion.php";
 include_once "./connexion/autoloader.php";
 
-$manager = new Manager($connexion);
-$destinations = $manager->getAllDestination();
-$destinationsObject = [];
 
 
-$datalistDestination = $manager->();
+$manager2 = new Manager2($connexion);
+$destinations = $manager2->getAllDestinationId();
+$destinationsList = [];
 
-var_dump($datalistDestination);
+foreach ($destinations as $destinationData) {
+    $objectDestination = new Destination($destinationData);
+
+    
+    array_push($destinationsList, $objectDestination);
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -21,7 +26,7 @@ var_dump($datalistDestination);
     <link rel="stylesheet" href="./CSS/accueil.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Liste des destinations</title>
 </head>
 
 <body>
@@ -61,22 +66,7 @@ var_dump($datalistDestination);
         </nav>
     </header>
 
-
-    <div class="grid gap-2 grid-cols-3 p-8">
-
-<?php foreach ($datalistDestination as $destinations) : ?>
-    <?php if (!empty($datalistDestination)) : ?>
-        <div class="text-white border-2 border-slate-700 rounded-md">
-
-            <!-- Affichage de l'image de l'animal -->
-            <img class="size-20" src="../images/<?= $destinations['photo'] ?>" alt="">
-
-        
-        </div>
-    <?php endif; ?>
-<?php endforeach; ?>
-</div>
-
+<!--  -->
 
 <!-- 
     $updatedRequest = $this->connexion->prepare("SELECT * FROM phrase WHERE `id` = ROUND( RAND()");
@@ -86,7 +76,7 @@ $randomPhrase = $updatedRequest->fetch(PDO::FETCH_ASSOC);
 echo $randomPhrase; -->
 
     <section>
-        <div><img class="size-20" src="../images/<?= $destinations['photo'] ?>" alt=""></div>
+        <div><img class="size-20" src="../images/<?= $data["photo"] ?>" alt=""></div>
         <div class="d-flex justify-content-end">
             <h1 class="titleHeader mt-2 me-1">Le meilleur comparateur de la toile</h1>
         </div>
@@ -96,31 +86,23 @@ echo $randomPhrase; -->
             <button type="button" class="btn btn-primary text-warning mt-2"><strong>Découvrez nos offres Premium</strong></button>
         </div>
     </section>
-    <!-- 
-    SECTIONS OFFRES BDD CARDS -->
-    <section class="sectionCards1">
-        <div class="container text-center mt-5">
-            <div class="row align-items-center">
-                <div class="col-lg-4">
-                    <?php foreach ($destinationsObject as $key) { ?>
-
-                        <div class="card shadow-lg" style="width: 25rem;">
-                        <a href="./liste_voyage.php"><img src="<?= $key->getPhoto() ?>" class="card-img-top img-fluid" alt="..."></a>
-                            <div class="card-body">
-                                <h5><?= $key->getLocation() ?></h5>
-                                <p class="card-text"><?= $key->getTexte() ?></p>
-                                <div class="d-flex justify-content-between">
-                                    <p class="text-info fs-3"><?= $key->getPrice() ?>€</p>
-                                    <a href=""><img src="<?= $key->getLogo()?>" style="height: 25px;"></a>
+ 
 
 
-
-                                </div>
-                            </div>
-                        </div>
-                </div>
-            <?php } ?>
-
+    <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A list item
+    <span class="badge text-bg-primary rounded-pill">14</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A second list item
+    <span class="badge text-bg-primary rounded-pill">2</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A third list item
+    <span class="badge text-bg-primary rounded-pill">1</span>
+  </li>
+</ul>
             <!-- <div class="col-lg-4 col-sm-12 ">
                     <div class="card" style="width: 25rem;">
                         <img src="..." class="card-img-top" alt="...">
