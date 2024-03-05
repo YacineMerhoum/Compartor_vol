@@ -9,7 +9,6 @@ class TourOperator {
     private string $logo;
    
     
-<<<<<<< HEAD
 
     public function __construct(array $data) {
         $this->hydrate($data);        
@@ -28,19 +27,7 @@ class TourOperator {
    
 
     // GETTER
-=======
-    public function __construct($id, $name, $link, $gradeCount, $gradeTotal, $isPremium)
-    {
-    $this->id = $id;
-    $this->name = $name;
-    $this->link = $link;
-    $this->gradeCount = $gradeCount;
-    $this->gradeTotal = $gradeTotal;
-    $this->isPremium = $isPremium;
-    
->>>>>>> bab8975462ed3b087895da37b50cd8a31d46b470
 
-    
     public function getid_operator(){
         return $this->id_operator;
     }
@@ -87,7 +74,6 @@ class TourOperator {
     public function setlink($link){
         $this->link = $link;
     }
-<<<<<<< HEAD
 
      
     public function setgradeCount($gradeCount){
@@ -108,9 +94,6 @@ class TourOperator {
     }
 
 }
-=======
-  
->>>>>>> bab8975462ed3b087895da37b50cd8a31d46b470
 
 
 
