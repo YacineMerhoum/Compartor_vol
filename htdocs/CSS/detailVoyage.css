@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap'); 
+.navbar{
+    font-family: "Oswald", sans-serif;
+    
+
+}
+.font {
+    font-family: "Oswald", sans-serif;
+}
+
+.headerTop {
+    
+    background-size: cover;
+    height: 350px;
+    
+  }
+  
+  
+  .titleHeader{
+    font-family: "Oswald", sans-serif;
+    color: white;
+    font-size: 5rem;
+  }
+/* 
+
+
+
+  /* HOVER DES CARDS */
+
+footer {
+  background-image: url(../medias/footer.png);
+  background-size:cover;
+  background-position: 30%;
+  height: 750px;
+  font-family: "Oswald", sans-serif;
+}
+/* @media only screen and (max-width: 768px) {
+  footer {
+    height: 500px; 
+  }
+}
+
+
+@media only screen and (max-width: 576px) {
+  footer {
+    height: 300px; 
+    background-position: center; 
+  }
+} */

@@ -7,30 +7,36 @@ class Destination
     private string $photo;
     private string $texte;
     private int $price;
-    private int $TourOperatorId;
     private string $logo;
+    private string $headerPhoto;
+    private string $gps;
+    private int $tourOperatorId;
 
     public function __construct($data)
-    {
+    {   
+
+
+
+
         $this->setId($data["id"]);
         $this->setLocation($data["location"]);
         $this->setPhoto($data["photo"]);
         $this->setTexte($data["texte"]);
         $this->setPrice($data["price"]);
         $this->setLogo($data["logo"]);
+        $this->setGps($data["gps"]);
+        $this->setHeaderPhoto($data["headerPhoto"]);
         
-
+        
+    
     }
 
     public function getId()
     {
         return $this->id;
     }
-    public function setId(int $id)
+    public function setId($id)
     {
-        if($id == 0){
-            die;
-        }
         $this->id = $id;
     }
     public function getPhoto()
@@ -73,5 +79,21 @@ class Destination
     {
         $this->logo = $logo;
     }
-
+    public function getHeaderPhoto()
+    {
+        return $this->headerPhoto;
+    }
+    
+    public function setHeaderPhoto($headerPhoto)
+    {
+        $this->headerPhoto = $headerPhoto;
+    }
+    public function getGps()
+    {
+        return $this->gps;
+    }
+    public function setGps($gps)
+    {
+        $this->gps = $gps;
+    }
 }
