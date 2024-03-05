@@ -11,13 +11,15 @@ class Manager
     {
         $preparedRequest = $this->connexion->prepare("SELECT * 
         FROM `destination` 
-        JOIN `tour_operator` ON `destination`.`tour_operator_id` = `tour_operator`.`id`
+        JOIN `tour_operator` ON `destination`.`tour_operator_id` = `tour_operator`.`id_operator`
         LIMIT 6;
         ");
         $preparedRequest->execute([
             
         ]);
         $destinationArray = $preparedRequest->fetchAll(PDO::FETCH_ASSOC);
+        
+        
         return $destinationArray;
     }
     public function getOperatorByDestination($id, $name, $link, $grade_count, $grade_total, $is_premium)
@@ -37,7 +39,7 @@ class Manager
     // NOTE AVIS REVIEWS ??
     public function getReviewByOperator()
     {
-        $preparedRequest = $this->connexion->prepare("SELECT * FROM `review`");
+        $preparedRequest = $this->connexion->prepare("SELECT * FROM `review` WHERE `tour_operator_id`");
         $preparedRequest->execute([
 
         ]);
@@ -45,16 +47,39 @@ class Manager
         return $reviewArray;
     }
 
-    public function getAllDestinationId() {
-        $getDestinationId = "SELECT * FROM destination";
 
-        $statement = $this->connexion->prepare($getDestinationId);
-        $statement->execute();
 
-        $datalistDestination = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        return $datalistDestination;
+
+
+    public function getDestinationById($id) {
+        $preparedRequest = "SELECT * 
+        FROM `destination` 
+        JOIN `tour_operator` ON `destination`.`tour_operator_id` = `tour_operator`.`id_operator`
+        WHERE `id` = ? ";
+
+        $statement = $this->connexion->prepare($preparedRequest);
+        $statement->execute([
+            $id
+        ]);
+
+        $datalistDestination = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $destination = new Destination($datalistDestination);
+
+        return $destination;
+    }
+
+    public function getReview(){
+        $preparedRequest = $this->connexion->prepare("SELECT * FROM `review` WHERE `tour_operator_id`");
+        $preparedRequest->execute([
+
+        ]);
+        $review = $preparedRequest->fetch(PDO::FETCH_ASSOC);
+        return $review;
+
     }
         
 
 }
+        

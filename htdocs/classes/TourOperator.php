@@ -16,6 +16,7 @@ class TourOperator {
     $this->gradeCount = $gradeCount;
     $this->gradeTotal = $gradeTotal;
     $this->isPremium = $isPremium;
+    
 
     
     }
@@ -44,7 +45,7 @@ class TourOperator {
     {
         $this->link = $link;
     }
-
+  
 
 
 

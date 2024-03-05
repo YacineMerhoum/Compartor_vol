@@ -60,12 +60,12 @@ foreach ($reviews as $review) {
             </div>
          </div>
 
+         <?php } ?>
          
 
 </body>
 
 
-    <?php } ?>
 
 
 

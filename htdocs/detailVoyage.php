@@ -4,18 +4,31 @@ include_once "./connexion/autoloader.php";
 
 
 
+
+
+$id = $_GET["id"];
+
 $manager = new Manager($connexion);
-$destinations = $manager->getAllDestination();
-$destinationsObject = [];
+$destination = $manager->getDestinationById($id);
 
-foreach ($destinations as $destinationData) {
-    $objectDestination = new Destination($destinationData);
-    
 
-    
-    array_push($destinationsObject, $objectDestination);
-} 
 
+// LES REVIEWS SONT A LIEES AUX ID 
+$manager = new Manager($connexion);
+$reviews = $manager->getReviewByOperator();
+$reviewsObject = [];
+
+foreach ($reviews as $singleReview) {
+    $objectReview = new Review(
+        $singleReview["id"],
+        $singleReview["message"],
+        $singleReview["author"],
+        $singleReview["note"],
+        $singleReview["date"],
+        $singleReview["tour_operator_id"]
+    );
+    array_push($reviewsObject, $objectReview);
+}
 
 
 ?>
@@ -25,10 +38,10 @@ foreach ($destinations as $destinationData) {
 <head>
     <meta charset="UTF-8">
     <!-- <link rel="stylesheet" href="./loader/loader.css"> -->
-    <link rel="stylesheet" href="./CSS/accueil.css">
+    <link rel="stylesheet" href="./CSS/detailVoyage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Détail Voyage</title>
 </head>
 
 <body>
@@ -67,52 +80,65 @@ foreach ($destinations as $destinationData) {
             </div>
         </nav>
     </header>
-    <section class="headerTop">
-        <div class=" d-flex justify-content-end">
-            <h1 class="titleHeader mt-2 me-1">Le meilleur comparateur de la toile</h1>
-        </div>
-        <div class="d-flex align-items-end flex-column">
 
-
-            <button type="button" class="btn btn-primary text-warning mt-2"><strong>Découvrez nos offres Premium</strong></button>
+    <section class="headerTop" style="background-image: url(<?= $destination->getHeaderPhoto() ?>);">
+        <div class=" d-flex justify-content-start">
+            <h1 class="titleHeader mt-5 me-1"><?= $destination->getLocation() ?></h1>
         </div>
+
     </section>
-    <!-- 
-    SECTIONS OFFRES BDD CARDS -->
-    <section class="sectionCards1">
-        <div class="container text-center mt-5">
-            <div class="row">
-                <?php foreach ($destinationsObject as $destination) { ?>
 
-                    <div class="col-lg-4 col-md-6 col-sm-12">
 
-                    <a href="./destination.php?id=<?=$destination->getId()?> ">
-                 
+    
 
-                        <div class="card shadow-lg mb-5" style="width: 25rem; height: 30rem;">
-                            <img src="<?= $destination->getPhoto() ?>" class="card-img-top"></a>
-                            <div class="card-body">
-                                <h5><?= $destination->getLocation() ?></h5>
-                                <p class="card-text"><?= $destination->getTexte() ?></p>
-                                <div class="d-flex justify-content-between">
-                                    <p class="text-info fs-3"><?= $destination->getPrice() ?>€</p>
-                                    <img src="<?= $destination->getLogo() ?>" style="height: 25px;">
-                                </div>
-                            </div>
-                        </div>
-                
-                    </div>
-                <?php } ?>
+
+    <div class="d-flex justify-content-center p-5">
+        <div class="">
+        <iframe class="rounded-4 shadow-lg " src="<?=$destination->getGps()?>" width="800" height="350" style="border:0;" allowfullscreen=""
+         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="row align-items-center">
+            <div class="col-3">
+
+            </div>
+            <div class="col-6">
+                <h2 class="font text-center"><?= $destination->getTexte() ?></h2>
+
+            </div>
+            <div class="col-3">
+
             </div>
         </div>
-    </section>
-    <!-- RECHERCHE DE VOYAGE A TRAVAILLER  -->
-    <div class="search d-flex justify-content-center mb-5">
-        <form class="d-flex justify-content-center" style="width: 30%;" role="search">
-            <input name="search" class="form-control me-2" type="search" placeholder="Rechercher une destination" aria-label="Search">
-            <button class="btn btn-primary text-warning" type="submit"><strong>Rechercher</strong></button>
-        </form>
+
     </div>
+    <div class="d-flex justify-content-center mt-5">
+        <h3 class="font ">Ce voyage est disponible avec :</h3>
+    </div>
+    <div class="operators d-flex justify-content-center p-5">
+        <a href=""><img src="<?= $destination->getLogo() ?>" alt="" style="height:80px;"></a>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between my-5">
+    <?php foreach ($reviewsObject as $key) { ?>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><?= $key->getAuthor()?></h5>
+                <h6 class="card-title"><?= $key->getDate()?></h6>
+                <h5 class="card-subtitle mb-2 text-body-secondary"><?= $key->getNote()?></h5>
+                <p class="card-text"><?= $key->getMessage()?></p>
+                
+                
+            </div>
+        </div>
+        <?php } ?>
+    </div>    
+
+
+
+
+
 
     <footer class="d-flex align-items-end justify-content-center">
 
