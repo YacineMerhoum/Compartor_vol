@@ -11,7 +11,7 @@ class Manager
     {
         $preparedRequest = $this->connexion->prepare("SELECT * 
         FROM `destination` 
-        JOIN `tour_operator` ON `destination`.`tour_operator_id` = `tour_operator`.`id`
+        JOIN `tour_operator` ON `destination`.`tour_operator_id` = `tour_operator`.`id_operator`
         LIMIT 6;
         ");
         $preparedRequest->execute([
@@ -36,6 +36,7 @@ class Manager
 
     // NOTE AVIS REVIEWS ??
     public function getReviewByOperator()
+  
     {
         $preparedRequest = $this->connexion->prepare("SELECT * FROM `review`");
         $preparedRequest->execute([

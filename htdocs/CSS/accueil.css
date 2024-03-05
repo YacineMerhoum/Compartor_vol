@@ -1,7 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap'); 
+
+body{
+
+  font-family: "Oswald", sans-serif;
+  color: white;
+  font-size: 5rem;
+
+}
+
 .navbar{
     font-family: "Oswald", sans-serif;
-    
+    font-size: 3rem;
 
 }
 

@@ -39,16 +39,16 @@ foreach ($destinations as $destinationData) {
     <header>
         <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand ms-5" href="index.php">
                     <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav fs-4 ">
+                    <ul class="navbar-nav fs-5">
                         <li class="nav-item">
-                            <a class="nav-link active text-warning m-5 " aria-current="page" href="#"><strong>Promotion</strong></a>
+                            <a class="nav-link active text-warning m-5" aria-current="page" href="#"><strong>Promotion</strong></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-info m-5" href="#"><strong>Voyages</strong></a>
@@ -66,12 +66,12 @@ foreach ($destinations as $destinationData) {
     </header>
     <section class="headerTop">
         <div class=" d-flex justify-content-end">
-            <h1 class="titleHeader mt-2 me-1">Le meilleur comparateur de la toile</h1>
+            <div class="titleHeader mt-3 me-5">Le meilleur comparateur de la toile</div>
         </div>
         <div class="d-flex align-items-end flex-column">
 
 
-            <button type="button" class="btn btn-primary text-warning mt-2"><strong>Découvrez nos offres Premium</strong></button>
+            <button type="button" class="btn btn-primary text-warning mt-5 me-5"><strong>Découvrez nos offres Premium</strong></button>
         </div>
     </section>
     <!-- 
@@ -83,7 +83,7 @@ foreach ($destinations as $destinationData) {
 
                     <div class="col-lg-4 col-md-6 col-sm-12">
 
-                    <a href="./destination.php?id=<?= $destination->getId()?>">
+                    <a href="./listeVoyage.php?id=<?= $destination->getId()?>">
 
                         <div class="card shadow-lg mb-5" style="width: 25rem; height: 30rem;">
                             <img src="<?= $destination->getPhoto() ?>" class="card-img-top"></a>
@@ -102,6 +102,8 @@ foreach ($destinations as $destinationData) {
             </div>
         </div>
     </section>
+
+    
     <!-- RECHERCHE DE VOYAGE A TRAVAILLER  -->
     <div class="search d-flex justify-content-center mb-5">
         <form class="d-flex justify-content-center" style="width: 30%;" role="search">
@@ -114,7 +116,7 @@ foreach ($destinations as $destinationData) {
 
 
 
-        <h4 class="text-white"><strong>Skyeagle.com Yacine Sylvain et fils © Copyright 2024</strong></h4>
+        <h5 class="text-white">Skyeagle.com  Sylvain & Yacine CORP. © Copyright 2024</h5>
     </footer>
 
 
