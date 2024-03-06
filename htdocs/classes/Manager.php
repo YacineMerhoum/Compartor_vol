@@ -40,7 +40,7 @@ class Manager
     public function getReviewByOperator()
   
     {
-        $preparedRequest = $this->connexion->prepare("SELECT * FROM `review` WHERE `tour_operator_id`");
+        $preparedRequest = $this->connexion->prepare("SELECT * FROM `review` WHERE `id_tour_operator`");
         $preparedRequest->execute([
 
         ]);
@@ -61,7 +61,8 @@ class Manager
 
         $statement = $this->connexion->prepare($preparedRequest);
         $statement->execute([
-            $id
+            $id,
+            
         ]);
 
         $datalistDestination = $statement->fetch(PDO::FETCH_ASSOC);
@@ -71,6 +72,11 @@ class Manager
         return $destination;
     }
 
+
+
+
+
+
     public function getReview(){
         $preparedRequest = $this->connexion->prepare("SELECT * FROM `review` WHERE `tour_operator_id`");
         $preparedRequest->execute([
@@ -79,6 +85,18 @@ class Manager
         $review = $preparedRequest->fetch(PDO::FETCH_ASSOC);
         return $review;
 
+    }
+
+    public function addReview($author, $date, $message, $note, $id_tour_operator){
+        $preparedRequest = $this->connexion->prepare("INSERT INTO `review` (`author`,`date`,`message`,`note`,`id_tour_operator`) VALUES (?,?,?,?,?)");
+        $preparedRequest->execute([
+            $author,
+            $date,
+            $message,
+            $note,
+            $id_tour_operator,
+            
+        ]);
     }
 
 }

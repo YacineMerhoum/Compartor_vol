@@ -86,12 +86,7 @@ foreach ($destinations as $destinationData) {
 
                     <div class="col-lg-4 col-md-6 col-sm-12">
 
-<<<<<<< HEAD
                     <a href="./listeVoyage.php?id=<?= $destination->getId()?>">
-=======
-                    <a href="./destination.php?id=<?=$destination->getId()?> ">
-                 
->>>>>>> bab8975462ed3b087895da37b50cd8a31d46b470
 
                         <div class="card shadow-lg mb-5" style="width: 25rem; height: 30rem;">
                             <img src="<?= $destination->getPhoto() ?>" class="card-img-top"></a>

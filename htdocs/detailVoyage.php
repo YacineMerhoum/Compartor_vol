@@ -4,6 +4,20 @@ include_once "./connexion/autoloader.php";
 
 
 
+$manager = new Manager($connexion);
+if (
+    !empty($_POST["author"]) && ($_POST["date"]) && ($_POST["message"])
+    && ($_POST["note"]) && ($_POST["id_tour_operator"])
+) {
+    $manager->addReview(
+        $_POST["author"],
+        $_POST["date"],
+        $_POST["message"],
+        $_POST["note"],
+        $_POST["id_tour_operator"],
+    );
+};
+
 
 
 $id = $_GET["id"];
@@ -25,12 +39,19 @@ foreach ($reviews as $singleReview) {
         $singleReview["author"],
         $singleReview["note"],
         $singleReview["date"],
-        $singleReview["tour_operator_id"]
+        $singleReview["id_tour_operator"]
     );
     array_push($reviewsObject, $objectReview);
 }
 
-
+?>
+<?php
+// Timezone pour le formulaire 
+date_default_timezone_set('Europe/Paris');
+$date = new DateTime();
+$locale = 'fr_FR';
+$formatter = new IntlDateFormatter($locale, IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+$date_fr = $formatter->format($date);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +60,7 @@ foreach ($reviews as $singleReview) {
     <meta charset="UTF-8">
     <!-- <link rel="stylesheet" href="./loader/loader.css"> -->
     <link rel="stylesheet" href="./CSS/detailVoyage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail Voyage</title>
@@ -89,13 +111,12 @@ foreach ($reviews as $singleReview) {
     </section>
 
 
-    
+
 
 
     <div class="d-flex justify-content-center p-5">
         <div class="">
-        <iframe class="rounded-4 shadow-lg " src="<?=$destination->getGps()?>" width="800" height="350" style="border:0;" allowfullscreen=""
-         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe class="rounded-4 shadow-lg " src="<?= $destination->getGps() ?>" width="800" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
     <div class="d-flex justify-content-center">
@@ -117,46 +138,77 @@ foreach ($reviews as $singleReview) {
         <h3 class="font ">Ce voyage est disponible avec :</h3>
     </div>
     <div class="operators d-flex justify-content-center p-5">
-        <a href=""><img src="<?= $destination->getLogo() ?>" alt="" style="height:80px;"></a>
+        <a href="<?= $destination->getLink() ?>" target="_blank"><img src="<?= $destination->getLogo() ?>" alt="" style="height:80px;"></a>
     </div>
 
-    <div class="d-flex flex-wrap justify-content-between my-5">
-    <?php foreach ($reviewsObject as $key) { ?>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title"><?= $key->getAuthor()?></h5>
-                <h6 class="card-title"><?= $key->getDate()?></h6>
-                <h5 class="card-subtitle mb-2 text-body-secondary"><?= $key->getNote()?></h5>
-                <p class="card-text"><?= $key->getMessage()?></p>
-                
-                
+    <div class="d-flex flex-wrap justify-content-around my-5" id="cardsReview">
+        <?php foreach ($reviewsObject as $key) { ?>
+            <div class="card shadow-lg border border-2 border-black rounded" style="width: 18rem;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title fs-3 mt-3 font"><?= $key->getAuthor() ?></h5>
+                        <img class="border border-5 rounded-circle" style="height: 70px;" src="./medias/logo_comparator_premium_seul.png">
+                    </div>
+                    <div class="text-center">
+                        <h6 class="card-title fs-6"><?= $key->getDate() ?></h6>
+                        <h5 class="card-subtitle mb-2 text-success fs-1  "><?= $key->getNote() ?>/10</h5>
+                        <p class="card-text fst-italic fw-bold "><?= $key->getMessage() ?></p>
+
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+
+                </div>
             </div>
-        </div>
         <?php } ?>
-    </div>    
+    </div>
+    <div class="container text-center my-5">
+        <div class="row align-items-center">
+            <h1 class="font my-5">Laissez-nous votre avis</h1>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <form method="post" id="createReview" action="">
+                    <span class="input-group-text font">Nom</span>
+                    <input type="text" class="form-control" placeholder="" id="author" name="author">
 
 
+                    <span class="input-group-text font">Date</span>
+                    <input type="text" class="form-control" value="<?php echo $date_fr; ?>" id="date" name="date" readonly>
+                    
+
+                    <span class="input-group-text font">Votre message</span>
+                    <input class="form-control" id="message" name="message"></input>
+
+                    <span class="input-group-text font">Votre note</span>
+                    <input type="text" class="form-control" placeholder="" id="note" name="note">
+
+                    <span class="input-group-text font">Opérateur</span>
+                    <select class="form-select mt-3 font" name="id_tour_operator" id="id_tour_operator">
+                        <option value="1">Leclerc</option>
+                        <option value="2">Fram</option>
+                        <option value="3">Thomas Cook</option>
 
 
+                    </select>
 
+                    <button type="submit" id="buttonSend" class="mt-5 btn btn-secondary"><span class="font">Envoyer</span></button>
+                </form>
+
+            </div>
+
+            <div class="col-4"></div>
+        </div>
+    </div>
 
     <footer class="d-flex align-items-end justify-content-center">
-
-
-
         <h4 class="text-white"><strong>Skyeagle.com Yacine Sylvain et fils © Copyright 2024</strong></h4>
     </footer>
 
+    <script src="./JavaScript/ajax.js"></script>
 
-
-
-
-
-
-
-
-
-    <script src="./JavaScript/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
