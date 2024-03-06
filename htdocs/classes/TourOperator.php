@@ -24,7 +24,6 @@ class TourOperator {
 
     }
 
-   
 
     // GETTER
 

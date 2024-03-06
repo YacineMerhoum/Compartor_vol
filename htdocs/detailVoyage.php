@@ -1,8 +1,10 @@
 <?php
-include_once "./connexion/connexion.php";
-include_once "./connexion/autoloader.php";
-
-
+session_start();
+ 
+require_once './connexion/connexion.php';
+// include "../connexion/debug.php";
+require_once './connexion/autoloader.php';
+require_once './connexion/message.php';
 
 
 
@@ -53,27 +55,47 @@ foreach ($reviews as $singleReview) {
 
 
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
+    <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand ms-5" href="index.php">
                     <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav fs-4 ">
+                    <ul class="navbar-nav fs-5">
                         <li class="nav-item">
-                            <a class="nav-link active text-warning m-5 " aria-current="page" href="#"><strong>Promotion</strong></a>
+                            <a class="nav-link active text-warning m-5" aria-current="page" href="">Promotion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="#"><strong>Voyages</strong></a>
+                            <a class="nav-link text-info m-5" href="">Voyages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="#"><strong>Opérateurs</strong></a>
+                            <a class="nav-link text-info m-5" href="">Opérateurs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="#"><strong>Services</strong></a>
+                            <div>
+                                <?php
+                                if (session_status() !== PHP_SESSION_ACTIVE) {
+                                    session_start();
+                                }
+                                if (isset($_SESSION['name'])) {
+                                ?>
+                                    <p class="nav-link text-warning m-5"><?php echo $_SESSION['name']; ?></p>
+                                <?php
+                                } else {
+                                ?>
+                                    <a class="nav-link text-warning m-5" href="./connexion.php">Connexion <h6 class="">(réservez opérateur)</h6></strong></a>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                            <li class="nav-item">
+                                <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
+                            </li>
+                            <div>
+
                         </li>
                     </ul>
                 </div>

@@ -10,7 +10,7 @@ class Destination
     private string $logo;
     private string $headerPhoto;
     private string $gps;
-    private int $tourOperatorId;
+    public int $tourOperatorId;
 
     public function __construct($data)
     {   
@@ -26,6 +26,7 @@ class Destination
         $this->setLogo($data["logo"]);
         $this->setGps($data["gps"]);
         $this->setHeaderPhoto($data["headerPhoto"]);
+        $this->settourOperatorId($data["tour_operator_id"]);
         
         
     
@@ -95,5 +96,14 @@ class Destination
     public function setGps($gps)
     {
         $this->gps = $gps;
+    }
+
+    public function gettourOperatorId()
+    {
+        return $this->tourOperatorId;
+    }
+    public function settourOperatorId($tourOperatorId)
+    {
+        $this->tourOperatorId = $tourOperatorId;
     }
 }

@@ -1,40 +1,36 @@
 <?php
- session_start();
- 
-require_once './connexion/connexion.php';
-require_once './connexion/autoloader.php';
-require_once './connexion/message.php';
 
+session_start();
+require './connexion/autoloader.php';
+require './connexion/connexion.php';
+require './connexion/message.php';
 
+$TourOperatorconnexion = new TourOperatorManager($connexion);
 
-$manager = new Manager($connexion);
-$destinations = $manager->getAllDestination();
-$destinationsObject = [];
-
-foreach ($destinations as $destinationData) {
-    $objectDestination = new Destination($destinationData);
-    
-
-    
-    array_push($destinationsObject, $objectDestination);
-} 
-
-
+// Appeler getData() pour obtenir les données
+$listOperatorManager = $TourOperatorconnexion->getOperator();
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <!-- <link rel="stylesheet" href="./loader/loader.css"> -->
-    <link rel="stylesheet" href="./CSS/accueil.css">
+    <link rel="stylesheet" href="./CSS/listeVoyage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
 </head>
 
 <body>
+
+
+
+
+
 
     <header>
     <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
@@ -84,68 +80,64 @@ foreach ($destinations as $destinationData) {
             </div>
         </nav>
     </header>
-    <section class="headerTop">
-        <div class=" d-flex justify-content-end">
-            <div class="titleHeader mt-3 me-5">Le meilleur comparateur de la toile</div>
-        </div>
-        <div class="d-flex align-items-end flex-column">
 
-
-            <button type="button" class="btn btn-primary text-warning mt-5 me-5"><strong>Découvrez nos offres Premium</strong></button>
-        </div>
-    </section>
-    <!-- 
-    SECTIONS OFFRES BDD CARDS -->
-    <section class="sectionCards1">
-        <div class="container text-center mt-5">
-            <div class="row">
-                <?php foreach ($destinationsObject as $destination) { ?>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-
-                    <a href="./listeVoyage.php?id=<?= $destination->getId()?>">
-
-                        <div class="card shadow-lg mb-5" style="width: 25rem; height: 30rem;">
-                            <img src="<?= $destination->getPhoto() ?>" class="card-img-top"></a>
-                            <div class="card-body">
-                                <h5><?= $destination->getLocation() ?></h5>
-                                <p class="card-text"><?= $destination->getTexte() ?></p>
-                                <div class="d-flex justify-content-between">
-                                    <p class="text-info fs-3"><?= $destination->getPrice() ?>€</p>
-                                    <img src="<?= $destination->getLogo() ?>" style="height: 25px;">
-                                </div>
-                            </div>
-                        </div>
+    <form action="./process/admin.php" method="get">
+<div class="container">
+      <div class="text-center">
                 
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
-    </section>
+              <label for="name" class="fs-3">Selectionner votre entreprise</label>
+                
+              <label for="name" class=""></label>
+                                
+              <select id="chooseoperator" name="operator" autocomplete="chooseoperator"
+                class="text-center">
+                
+                <?php foreach ($listOperatorManager as $TourOperator) : ?>
 
-    
-    <!-- RECHERCHE DE VOYAGE A TRAVAILLER  -->
-    <div class="search d-flex justify-content-center mb-5">
-        <form class="d-flex justify-content-center" style="width: 30%;" role="search">
-            <input name="search" class="form-control me-2" type="search" placeholder="Rechercher une destination" aria-label="Search">
-            <button class="btn btn-primary text-warning" type="submit"><strong>Rechercher</strong></button>
-        </form>
-    </div>
+                    <option value="<?= $TourOperator->getid_operator(); ?>"><?= $TourOperator->getname(); ?>
+                    </option>
+                <?php endforeach; ?>
+                </select>
+
+
+                  <div class="">
+                       <button type="submit" class="btn btn-warning">Envoyé</button>
+                  </div>
+
+      </div>             
+      </div>
+  </form>
+  
+
+ 
+    <form action="./process/admin.php" method="post">
+<div class="container">
+      <div class="text-center">
+                
+              <label for="name" class="fs-3">Enregistrez-vous</label>
+                
+              <label for="name" class=""></label>
+                  <div class="flex rounded-lg">
+                      <input type="text" name="name" id="name" autocomplete="name" class="form-control mt-5" placeholder="Leclerc">
+                  </div><br>
+
+                
+                  <div class="">
+                       <button type="submit" class="btn btn-warning">Envoyé</button>
+                  </div>
+
+      </div>             
+      </div>
+  </form>
+  
+
 
     <footer class="d-flex align-items-end justify-content-center">
 
 
 
-        <h5 class="text-white">Skyeagle.com  Sylvain & Yacine CORP. © Copyright 2024</h5>
+        <h5 class="text-white">Skyeagle.com Sylvain & Yacine CORP. © Copyright 2024</h5>
     </footer>
-
-
-
-
-
-
-
-
 
 
     <script src="./JavaScript/script.js"></script>

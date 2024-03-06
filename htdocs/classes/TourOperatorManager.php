@@ -12,16 +12,17 @@ class TourOperatorManager
 
     public function getOperator(){
         $preparedRequest = $this->connexion->prepare("SELECT * FROM tour_operator");
-        $preparedRequest->execute([]);
-        $OperatorIdArray = $preparedRequest->fetch(PDO::FETCH_ASSOC);
+        $preparedRequest->execute();
+        $result = $preparedRequest->fetchAll(PDO::FETCH_ASSOC);
     
-        if ($OperatorIdArray) {
-            return new TourOperator($OperatorIdArray);
-        } else {
-            return null;
+        $datalistOperator = [];
+    
+        foreach ($result as $dataOperatorSql) {
+            $datalistOperator[] = new TourOperator($dataOperatorSql);
         }
+    
+        return $datalistOperator;
     }
 
-
-
+    
 }   
