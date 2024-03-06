@@ -22,7 +22,7 @@
         
 
 <div class="wrap">
-  <a href="accueil.php"><button class="button"><em>Accès au site</em></button></a>
+  <a href="accueil.php"><button class="button font"><em>Accès au site</em></button></a>
 </div>
 
 

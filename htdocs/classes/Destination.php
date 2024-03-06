@@ -10,7 +10,8 @@ class Destination
     private string $logo;
     private string $headerPhoto;
     private string $gps;
-    public int $tourOperatorId;
+    private string $link;
+    private int $tourOperatorId;
 
     public function __construct($data)
     {   
@@ -25,6 +26,7 @@ class Destination
         $this->setPrice($data["price"]);
         $this->setLogo($data["logo"]);
         $this->setGps($data["gps"]);
+        $this->setLink($data["link"]);
         $this->setHeaderPhoto($data["headerPhoto"]);
         $this->settourOperatorId($data["tour_operator_id"]);
         
@@ -105,5 +107,13 @@ class Destination
     public function settourOperatorId($tourOperatorId)
     {
         $this->tourOperatorId = $tourOperatorId;
+    }
+        public function getLink()
+    {
+        return $this->link;
+    }
+    public function setLink($link)
+    {
+        $this->link = $link;
     }
 }
