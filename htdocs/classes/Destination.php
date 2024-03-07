@@ -16,22 +16,34 @@ class Destination
     public function __construct($data)
     {   
 
+        // $this->setId($data["id"]);
+        // $this->setLocation($data["location"]);
+        // $this->setPhoto($data["photo"]);
+        // $this->setTexte($data["texte"]);
+        // $this->setPrice($data["price"]);
+        // if($data['logo']){
+        //     $this->setLogo($data["logo"]);
 
-
-
-        $this->setId($data["id"]);
-        $this->setLocation($data["location"]);
-        $this->setPhoto($data["photo"]);
-        $this->setTexte($data["texte"]);
-        $this->setPrice($data["price"]);
-        $this->setLogo($data["logo"]);
-        $this->setGps($data["gps"]);
-        $this->setLink($data["link"]);
-        $this->setHeaderPhoto($data["headerPhoto"]);
+        // }
+        // $this->setGps($data["gps"]);
+        // if($data['link']){
+        //     $this->setLink($data["link"]);
+        // }
+        // $this->setHeaderPhoto($data["headerPhoto"]);
+        $this->hydrate($data);
         $this->settourOperatorId($data["tour_operator_id"]);
         
         
     
+    }
+    public function hydrate(array $data){
+        foreach ($data as $key => $value) {
+            $method = 'set' . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+
     }
 
     public function getId()

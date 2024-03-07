@@ -6,7 +6,11 @@ require_once './connexion/connexion.php';
 require_once './connexion/autoloader.php';
 require_once './connexion/message.php';
 
+
+
+
 $manager = new Manager($connexion);
+
 if (
     !empty($_POST["author"]) && ($_POST["date"]) && ($_POST["message"])
     && ($_POST["note"]) && ($_POST["id_tour_operator"])
@@ -22,15 +26,14 @@ if (
 
 
 
-$id = $_GET["id"];
 
-$manager = new Manager($connexion);
-$destination = $manager->getDestinationById($id);
+
+// $manager = new Manager($connexion);
+// $destination = $manager->getDestinationById($id);
 
 
 
 // LES REVIEWS SONT A LIEES AUX ID 
-$manager = new Manager($connexion);
 $reviews = $manager->getReviewByOperator();
 $reviewsObject = [];
 
@@ -45,6 +48,21 @@ foreach ($reviews as $singleReview) {
     );
     array_push($reviewsObject, $objectReview);
 }
+
+$id = $_POST['id'];
+$location = $_POST['location'];
+
+
+
+$destinationFinal = $manager->getDestinationByOperatorIdAndDestinationLocation($id, $location);
+
+
+
+
+
+
+
+
 
 ?>
 <?php
@@ -133,9 +151,9 @@ $date_fr = $formatter->format($date);
         </nav>
     </header>
 
-    <section class="headerTop" style="background-image: url(<?= $destination->getHeaderPhoto() ?>);">
+    <section class="headerTop" style="background-image: url(<?= $destinationFinal->getHeaderPhoto() ?>);">
         <div class=" d-flex justify-content-start">
-            <h1 class="titleHeader mt-5 me-1"><?= $destination->getLocation() ?></h1>
+            <h1 class="titleHeader mt-5 me-1"><?= $destinationFinal->getLocation() ?></h1>
         </div>
 
     </section>
@@ -146,7 +164,7 @@ $date_fr = $formatter->format($date);
 
     <div class="d-flex justify-content-center p-5">
         <div class="">
-            <iframe class="rounded-4 shadow-lg " src="<?= $destination->getGps() ?>" width="800" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe class="rounded-4 shadow-lg " src="<?= $destinationFinal->getGps() ?>" width="800" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
     <div class="d-flex justify-content-center">
@@ -155,7 +173,7 @@ $date_fr = $formatter->format($date);
 
             </div>
             <div class="col-6">
-                <h2 class="font text-center"><?= $destination->getTexte() ?></h2>
+                <h2 class="font text-center"><?= $destinationFinal->getTexte() ?></h2>
 
             </div>
             <div class="col-3">
@@ -177,7 +195,7 @@ $date_fr = $formatter->format($date);
         <h3 class="font ">avec notre partenaire :</h3>
     </div>
     <div class="operators d-flex justify-content-center p-3">
-        <a href="<?= $destination->getLink() ?>" target="_blank"><img src="<?= $destination->getLogo() ?>" alt="" style="height:80px;"></a>
+        <a href="<?= $destinationFinal->getLink() ?>" target="_blank"><img src="<?= $destinationFinal->getLogo() ?>" alt="" style="height:80px;"></a>
     </div>
     
     <p class="text-center fw-bold mt-1">Ils ont aimé</p>

@@ -1,23 +1,10 @@
 <?php
 session_start();
+
+
+
 include_once "./connexion/connexion.php";
 include_once "./connexion/autoloader.php";
-
-$id_destination = isset($_GET['id']) ? $_GET['id'] : '';
-
-// Requête pour récupérer l'ID de l'opérateur associé à la destination
-$query = "SELECT tour_operator_id FROM destination WHERE id = :id";
-$statement = $connexion->prepare($query);
-$statement->bindValue(':id', $id_destination);
-$statement->execute();
-$row = $statement->fetch(PDO::FETCH_ASSOC);
-
-// Si une ligne est retournée, récupérer l'ID de l'opérateur
-$id_operator = $row ? $row['tour_operator_id'] : null;
-
-// Afficher l'ID de l'opérateur
-// echo "ID de l'opérateur associé à la destination : $id_operator";
-
 
 
 
@@ -28,7 +15,7 @@ $destinationsObject = [];
 
 foreach ($destinations as $destinationData) {
     $objectDestination = new Destination($destinationData);
-
+  
     array_push($destinationsObject, $objectDestination);
 }
 
@@ -75,17 +62,17 @@ if ($id_operator) {
     $statement = $connexion->prepare($query);
     $statement->bindValue(':id', $id_operator);
     $statement->execute();
-
+    
     // Vérifiez si des résultats ont été trouvés
     if ($statement->rowCount() > 0) {
         // Récupérez les informations de l'opérateur
         $operator_info = $statement->fetch(PDO::FETCH_ASSOC);
-
+        
         // // Affichez les informations de l'opérateur
         // echo "Nom de l'opérateur : " . $operator_info['name'];
         // echo "Description : " . $operator_info['logo'];
         // // et ainsi de suite pour d'autres champs
-
+        
     } else {
         echo "Aucun opérateur trouvé avec cet ID.";
     }
@@ -97,6 +84,8 @@ if ($id_operator) {
 
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,16 +95,10 @@ if ($id_operator) {
     <link rel="stylesheet" href="./CSS/listeVoyage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste</title>
+    <title>Accueil</title>
 </head>
 
 <body>
-    <!-- <div id="loader">
-<h1 class="textLoader">Chargement 
-    ...
-</h1>
-</div> -->
-
 
     <header>
         <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
@@ -178,45 +161,31 @@ if ($id_operator) {
         <div class="">
             <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;"><?= $destinationLocation ?></div><br>
             <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end" style="color: white;"><?= $destinationTexte ?></div><br>
-            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end"><img src="<?= $operator_info['logo']; ?>" alt=""></div>
+            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end"><img src="<?= $operator_info['logo'];?>" alt=""></div>
         </div>
     </section><br>
+    
+    <div class="container text-center">  
+    <div class="text-center fs-3">Choisissez votre tour Opérateur et partez pour <?= $destinationLocation ?></div><br>
+    
+    <form class="text-center" method="get" action="./listeVoyage.php">
 
-    <div class="container text-center">
-        <div class="text-center fs-3">
-            <h1 class="font">Choisissez votre tour Opérateur et partez pour</h1><?= $destinationLocation ?>
-        </div><br>
+    <select id="operator" name="operator" autocomplete="chooseoperator"
+                class="mt-5 form-select text-center fs-4">
+                <?php foreach ($operators as $operator) : ?>
+        
+                    <option value="<? $operator->getname(); ?>"> <?= $operator->getname(); ?></option>
 
-        <div class="container text-center">
-            <div class="row align-items-center">
-                <div class="col-4">
+                <?php endforeach; ?>
+            </select>
 
-                </div>
-                <div class="col-4 ">
-                    <form class="text-center" method="get" action="./detailVoyage.php">
-
-                        <select id="operator" name="id" autocomplete="chooseoperator" class="mt-5 form-select text-center fs-4 font">
-                            <?php foreach ($operators as $operator) { ?>
-
-                                <option value="<? $destination->getId(); ?>"> <?= $operator->getname(); ?></option>
-
-                            <?php } ?>
-                        </select>
-
-                        <button class="mt-5 btn btn-secondary text-white text-center" type="submit">Allez au détail de votre voyage</button>
-                    </form>
-
-                </div>
-                <div class="col-4">
-
-                </div>
-            </div>
-        </div>
-    </div>
+    <button class="mt-3 btn btn-primary text-white text-center" type="submit">Allez au détail de votre voyage</button>
+    </form>
+    </div> 
     </section>
+    
 
-
-
+  
 
     <footer class="d-flex align-items-end justify-content-center">
 
