@@ -51,20 +51,17 @@ foreach ($destinations as $destinationData) {
                             <a class="nav-link active text-warning m-5" aria-current="page" href="">Promotion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Voyages</a>
+                            <a class="nav-link text-info m-5" href="./accueil.php">Voyages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Opérateurs</a>
+                            <a class="nav-link text-info m-5" href="./operators.php">Opérateurs</a>
                         </li>
                         <li class="nav-item">
                             <div>
                                 <?php
-                                if (session_status() !== PHP_SESSION_ACTIVE) {
-                                    session_start();
-                                }
-                                if (isset($_SESSION['name'])) {
+                                if (!empty($_SESSION['name'])) {
                                 ?>
-                                    <p class="nav-link text-warning m-5"><?php echo $_SESSION['name']; ?></p>
+                                    <!-- <p class="nav-link text-warning m-5"><?php echo $_SESSION['name']; ?></p> -->
                                 <?php
                                 } else {
                                 ?>
@@ -74,7 +71,15 @@ foreach ($destinations as $destinationData) {
                                 ?>
                             </div>
                             <li class="nav-item">
+                            <?php if (!empty($_SESSION['name'])) { ?>
+                                
+                                
                                 <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
+
+                            <?php  }else{ ?>
+                                
+
+                                <?php } ?>
                             </li>
                             <div>
 
@@ -91,7 +96,8 @@ foreach ($destinations as $destinationData) {
         <div class="d-flex align-items-end flex-column">
 
 
-            <button type="button" class="btn btn-primary text-warning mt-5 me-5"><strong>Découvrez nos offres Premium</strong></button>
+            <button type="button" class="btn btn-primary text-warning mt-5 me-5" 
+            onclick="scrollToMiddle()"><strong>Découvrez nos offres</strong></button>
         </div>
     </section>
     <!-- 
@@ -103,7 +109,7 @@ foreach ($destinations as $destinationData) {
 
                     <div class="col-lg-4 col-md-6 col-sm-12">
 
-                    <a href="./listeVoyage.php?id=<?= $destination->getId()?>">
+                    <a href="./listeVoyage.php?location=<?= $destination->getLocation()?>">
 
                         <div class="card shadow-lg mb-5" style="width: 25rem; height: 30rem;">
                             <img src="<?= $destination->getPhoto() ?>" class="card-img-top"></a>

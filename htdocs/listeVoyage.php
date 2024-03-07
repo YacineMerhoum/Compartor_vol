@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "./connexion/connexion.php";
 include_once "./connexion/autoloader.php";
 
@@ -27,7 +28,7 @@ $destinationsObject = [];
 
 foreach ($destinations as $destinationData) {
     $objectDestination = new Destination($destinationData);
-  
+
     array_push($destinationsObject, $objectDestination);
 }
 
@@ -74,17 +75,17 @@ if ($id_operator) {
     $statement = $connexion->prepare($query);
     $statement->bindValue(':id', $id_operator);
     $statement->execute();
-    
+
     // Vérifiez si des résultats ont été trouvés
     if ($statement->rowCount() > 0) {
         // Récupérez les informations de l'opérateur
         $operator_info = $statement->fetch(PDO::FETCH_ASSOC);
-        
+
         // // Affichez les informations de l'opérateur
         // echo "Nom de l'opérateur : " . $operator_info['name'];
         // echo "Description : " . $operator_info['logo'];
         // // et ainsi de suite pour d'autres champs
-        
+
     } else {
         echo "Aucun opérateur trouvé avec cet ID.";
     }
@@ -117,7 +118,7 @@ if ($id_operator) {
 
 
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
+        <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
                 <a class="navbar-brand ms-5" href="index.php">
                     <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
@@ -134,7 +135,7 @@ if ($id_operator) {
                             <a class="nav-link text-info m-5" href="">Voyages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Opérateurs</a>
+                            <a class="nav-link text-info m-5" href="./operators.php">Opérateurs</a>
                         </li>
                         <li class="nav-item">
                             <div>
@@ -153,12 +154,21 @@ if ($id_operator) {
                                 }
                                 ?>
                             </div>
-                            <li class="nav-item">
+                        <li class="nav-item">
+                        <?php if (!empty($_SESSION['name'])) { ?>
+                                
+                                
                                 <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
-                            </li>
-                            <div>
 
+                            <?php  }else{ ?>
+                                
+
+                                <?php } ?>
+                            </li>
                         </li>
+                        <div>
+
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -168,31 +178,45 @@ if ($id_operator) {
         <div class="">
             <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;"><?= $destinationLocation ?></div><br>
             <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end" style="color: white;"><?= $destinationTexte ?></div><br>
-            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end"><img src="<?= $operator_info['logo'];?>" alt=""></div>
+            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end"><img src="<?= $operator_info['logo']; ?>" alt=""></div>
         </div>
     </section><br>
-    
-    <div class="container text-center">  
-    <div class="text-center fs-3">Choisissez votre tour Opérateur et partez pour <?= $destinationLocation ?></div><br>
-    
-    <form class="text-center" method="get" action="./listeVoyage.php">
 
-    <select id="operator" name="operator" autocomplete="chooseoperator"
-                class="mt-5 form-select text-center fs-4">
-                <?php foreach ($operators as $operator) : ?>
-        
-                    <option value="<? $operator->getname(); ?>"> <?= $operator->getname(); ?></option>
+    <div class="container text-center">
+        <div class="text-center fs-3">
+            <h1 class="font">Choisissez votre tour Opérateur et partez pour</h1><?= $destinationLocation ?>
+        </div><br>
 
-                <?php endforeach; ?>
-            </select>
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col-4">
 
-    <button class="mt-3 btn btn-primary text-white text-center" type="submit">Allez au détail de votre voyage</button>
-    </form>
-    </div> 
+                </div>
+                <div class="col-4 ">
+                    <form class="text-center" method="get" action="./detailVoyage.php">
+
+                        <select id="operator" name="id" autocomplete="chooseoperator" class="mt-5 form-select text-center fs-4 font">
+                            <?php foreach ($operators as $operator) { ?>
+
+                                <option value="<? $destination->getId(); ?>"> <?= $operator->getname(); ?></option>
+
+                            <?php } ?>
+                        </select>
+
+                        <button class="mt-5 btn btn-secondary text-white text-center" type="submit">Allez au détail de votre voyage</button>
+                    </form>
+
+                </div>
+                <div class="col-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
     </section>
-    
 
-  
+
+
 
     <footer class="d-flex align-items-end justify-content-center">
 
@@ -200,7 +224,7 @@ if ($id_operator) {
 
         <h4 class="text-white"><strong>Skyeagle.com Yacine Sylvain et fils © Copyright 2024</strong></h4>
     </footer>
- 
+
 
 
     <script src="./JavaScript/script.js"></script>

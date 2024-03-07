@@ -17,7 +17,7 @@ function showLoader() {
     document.getElementById("loader").style.display = "block";
 }
 
-// Fonction pour cacher le loader après 2 secondes
+
 function hideLoader() {
     setTimeout(function() {
         document.getElementById("loader").style.display = "none";
@@ -33,3 +33,10 @@ document.addEventListener("DOMContentLoaded", function() {
 window.addEventListener("load", function() {
     hideLoader(); // Cacher le loader après 2 secondes
 });
+
+
+// BOUTON RACCOURCI POUR QUE ÇA ENVOI SUR LES DESTINATIONS 
+function scrollToMiddle() {
+    let middleOfPage = document.body.scrollHeight / 3.3;
+    window.scrollTo(0, middleOfPage);
+}
