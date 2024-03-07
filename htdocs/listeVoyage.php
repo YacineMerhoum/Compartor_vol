@@ -192,39 +192,7 @@ if ($id_operator) {
     </section>
     
 
-    
-
-    <!-- Recuperer a partir de l'id du Get tout les infos du voyage et de l'operateur -->
-    <section class="mt-5">
-
-    <ol class="list-group list-group-numbered">
-  <li class="list-group-item">
-        <div class="ms-2 me-auto">
-        <div class="fw-bold"><?= $destinationLocation ?> - <?= $destinationTexte ?> <img class="" src="<?= $destinationOperatorlogo ?>" alt=""><span class="badge text-bg-primary rounded-pill">14</span></div>
-  </li>
-
-  <li class="list-group-item">
-        <div class="ms-2 me-auto">
-        <div class="fw-bold"><?= $destinationLocation ?> - <?= $destinationTexte ?> <img class="" src="<?= $destinationOperatorlogo ?>" alt=""><span class="badge text-bg-primary rounded-pill">14</span></div>
-  </li>
-
-  <li class="list-group-item">
-        <div class="ms-2 me-auto">
-        <div class="fw-bold"><?= $destinationLocation ?> - <?= $destinationTexte ?> <img class="" src="<?= $destinationOperatorlogo ?>" alt=""><span class="badge text-bg-primary rounded-pill">14</span></div>
-  </li>
   
-    </ol>
-
-
-
-    </section>
-    <!-- RECHERCHE DE VOYAGE A TRAVAILLER  -->
-    <div class="search d-flex justify-content-center mb-5 mt-5">
-        <form class="d-flex justify-content-center" style="width: 30%;" role="search">
-            <input name="search" class="form-control me-2" type="search" placeholder="Rechercher une destination" aria-label="Search">
-            <button class="btn btn-primary text-warning" type="submit"><strong>Rechercher</strong></button>
-        </form>
-    </div>
 
     <footer class="d-flex align-items-end justify-content-center">
 
@@ -232,14 +200,7 @@ if ($id_operator) {
 
         <h4 class="text-white"><strong>Skyeagle.com Yacine Sylvain et fils © Copyright 2024</strong></h4>
     </footer>
-
-
-
-
-
-
-
-
+ 
 
 
     <script src="./JavaScript/script.js"></script>
