@@ -11,7 +11,10 @@ class TourOperator {
     
 
     public function __construct(array $data) {
-        $this->hydrate($data);        
+        $this->hydrate($data);  
+        if($data['id_operator']){
+            $this->setid($data['id_operator']);
+        }      
      } 
 
     public function hydrate(array $data){

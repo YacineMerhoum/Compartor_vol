@@ -89,7 +89,7 @@ $listOperatorManager = $TourOperatorconnexion->getOperator();
                 
               <label for="name" class=""></label>
                                 
-              <select id="chooseoperator" name="operator" autocomplete="chooseoperator"
+              <select id="chooseoperator" name="id" autocomplete="chooseoperator"
                 class="text-center">
                 
                 <?php foreach ($listOperatorManager as $TourOperator) : ?>
