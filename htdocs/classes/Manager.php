@@ -37,12 +37,12 @@ class Manager
     }
 
     // NOTE AVIS REVIEWS ??
-    public function getReviewByOperator()
+    public function getReviewByOperatorId($id)
   
     {
-        $preparedRequest = $this->connexion->prepare("SELECT * FROM `review` WHERE `id_tour_operator`");
+        $preparedRequest = $this->connexion->prepare("SELECT * FROM `review` WHERE `id_tour_operator` = ?");
         $preparedRequest->execute([
-
+            $id
         ]);
         $reviewArray = $preparedRequest->fetchAll(PDO::FETCH_ASSOC);
         return $reviewArray;

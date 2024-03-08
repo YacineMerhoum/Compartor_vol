@@ -1,12 +1,15 @@
 <?php
 session_start();
 
-require_once './connexion/connexion.php';
+// require_once './connexion/connexion.php';
 // include "../connexion/debug.php";
-require_once './connexion/autoloader.php';
-require_once './connexion/message.php';
+// require_once './connexion/autoloader.php';
 
-
+require_once './classes/Manager.php';
+require_once './classes/Destination.php';
+require_once './classes/Review.php';
+require_once './classes/TourOperator.php';
+require_once './connexion/connexion.php';
 
 
 $manager = new Manager($connexion);
@@ -24,20 +27,19 @@ if (
     );
 };
 
+$id = $_POST['id'];
+$location = $_POST['location'];
 
-
-
-
-// $manager = new Manager($connexion);
-// $destination = $manager->getDestinationById($id);
-
-
+$tourOperator = $manager->getTourOperatorById($id);
 
 // LES REVIEWS SONT A LIEES AUX ID 
-$reviews = $manager->getReviewByOperator();
+$reviews = $manager->getReviewByOperatorId($id);
 $reviewsObject = [];
 
+
+
 foreach ($reviews as $singleReview) {
+  
     $objectReview = new Review(
         $singleReview["id"],
         $singleReview["message"],
@@ -48,11 +50,6 @@ foreach ($reviews as $singleReview) {
     );
     array_push($reviewsObject, $objectReview);
 }
-
-$id = $_POST['id'];
-$location = $_POST['location'];
-
-
 
 $destinationFinal = $manager->getDestinationByOperatorIdAndDestinationLocation($id, $location);
 
@@ -184,10 +181,11 @@ $date_fr = $formatter->format($date);
     </h1>                               
     </div>
     <div class="d-flex justify-content-center ">
-        <h3 class="font ">avec notre partenaire :</h3>
+        <h3 class="font ">avec notre partenaire : </h3>
     </div>
     <div class="operators d-flex justify-content-center p-3">
-        <a href="<?= $destinationFinal->getLink() ?>" target="_blank"><img src="<?= $destinationFinal->getLogo() ?>" alt="" style="height:80px;"></a>
+        <
+        <a href="<?= $tourOperator->getLink() ?>" target="_blank"><img src="<?= $tourOperator->getLogo() ?>" alt="" style="height:80px;"></a>
     </div>
     
     <p class="text-center fw-bold mt-1">Ils ont aimé</p>
@@ -195,17 +193,19 @@ $date_fr = $formatter->format($date);
     </div>                         
 
     <div class="d-flex flex-wrap justify-content-around my-5" id="cardsReview">
-        <?php foreach ($reviewsObject as $key) { ?>
+        <?php foreach ($reviewsObject as $review) { 
+            
+            ?>
             <div class="card shadow-lg border border-2 border-black rounded" style="width: 18rem;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title fs-3 mt-3 font"><?= $key->getAuthor() ?></h5>
+                        <h5 class="card-title fs-3 mt-3 font"><?= $review->getAuthor() ?></h5>
                         <img class="border border-5 rounded-circle" style="height: 70px;" src="./medias/logo_comparator_premium_seul.png">
                     </div>
                     <div class="text-center">
-                        <h6 class="card-title fs-6"><?= $key->getDate() ?></h6>
-                        <h5 class="card-subtitle mb-2 text-success fs-1  "><?= $key->getNote() ?>/10</h5>
-                        <p class="card-text fst-italic fw-bold "><?= $key->getMessage() ?></p>
+                        <h6 class="card-title fs-6"><?= $review->getDate() ?></h6>
+                        <h5 class="card-subtitle mb-2 text-success fs-1  "><?= $review->getNote() ?>/10</h5>
+                        <p class="card-text fst-italic fw-bold "><?= $review->getMessage() ?></p>
 
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star checked"></span>
