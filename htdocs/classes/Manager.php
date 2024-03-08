@@ -136,6 +136,7 @@ class Manager
             
         ]);
     }
+    
 
     public function getDestinationsByLocation(string $location) {
         $preparedRequest = "SELECT *

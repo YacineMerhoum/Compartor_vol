@@ -1,6 +1,6 @@
 <?php
 session_start();
- 
+
 require_once './connexion/connexion.php';
 // include "../connexion/debug.php";
 require_once './connexion/autoloader.php';
@@ -95,7 +95,7 @@ $date_fr = $formatter->format($date);
 
 
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
+        <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
                 <a class="navbar-brand ms-5" href="index.php">
                     <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
@@ -109,10 +109,10 @@ $date_fr = $formatter->format($date);
                             <a class="nav-link active text-warning m-5" aria-current="page" href="">Promotion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Voyages</a>
+                            <a class="nav-link text-info m-5" href="./accueil.php">Voyages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Opérateurs</a>
+                            <a class="nav-link text-info m-5" href="./operators.php">Opérateurs</a>
                         </li>
                         <li class="nav-item">
                             <div>
@@ -131,12 +131,20 @@ $date_fr = $formatter->format($date);
                                 }
                                 ?>
                             </div>
-                            <li class="nav-item">
-                                <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
-                            </li>
-                            <div>
+                        <li class="nav-item">
+                            <?php if (!empty($_SESSION['name'])) { ?>
 
+
+                                <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
+
+                            <?php  } else { ?>
+
+
+                            <?php } ?>
                         </li>
+                        <div>
+
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -169,17 +177,30 @@ $date_fr = $formatter->format($date);
 
             </div>
             <div class="col-3">
-
             </div>
         </div>
+    </div>
 
-    </div>
+
+    <div class="card mx-auto mt-3 cardPrice" style="width: 34rem;">
     <div class="d-flex justify-content-center mt-5">
-        <h3 class="font ">Ce voyage est disponible avec :</h3>
+        <h3 class="font ">Ce voyage est disponible au prix de :</h3>
     </div>
-    <div class="operators d-flex justify-content-center p-5">
-        <a href="<?= $destinationFinal->getLink() ?>" target="_blank"><img src="<?= $destination->getLogo() ?>" alt="" style="height:80px;"></a>
+    <div class="d-flex justify-content-center mt-1">
+        <h1 class="text-info"><?= $destination->getPrice()?><span class="text-warning"> €</span>
+        <span class="text-black fw-bold detailSpan">/pers.</span>
+    </h1>                               
     </div>
+    <div class="d-flex justify-content-center ">
+        <h3 class="font ">avec notre partenaire :</h3>
+    </div>
+    <div class="operators d-flex justify-content-center p-3">
+        <a href="<?= $destinationFinal->getLink() ?>" target="_blank"><img src="<?= $destinationFinal->getLogo() ?>" alt="" style="height:80px;"></a>
+    </div>
+    
+    <p class="text-center fw-bold mt-1">Ils ont aimé</p>
+    <img  class="" src="./medias/avistripodviser.svg" style="height: 40px;">
+    </div>                         
 
     <div class="d-flex flex-wrap justify-content-around my-5" id="cardsReview">
         <?php foreach ($reviewsObject as $key) { ?>
@@ -217,7 +238,7 @@ $date_fr = $formatter->format($date);
 
                     <span class="input-group-text font">Date</span>
                     <input type="text" class="form-control" value="<?php echo $date_fr; ?>" id="date" name="date" readonly>
-                    
+
 
                     <span class="input-group-text font">Votre message</span>
                     <input class="form-control" id="message" name="message"></input>

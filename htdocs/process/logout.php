@@ -4,4 +4,4 @@ session_start();
 
 session_destroy();
 
-header('Location: ../accueil.php?success=Vous avez été deconnecté !');
+header('Location: ../accueil.php');

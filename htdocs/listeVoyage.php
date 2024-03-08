@@ -2,23 +2,82 @@
 session_start();
 
 
+
 include_once "./connexion/connexion.php";
 include_once "./connexion/autoloader.php";
 
 
 
 $manager = new Manager($connexion);
+$destinations = $manager->getAllDestination();
+$destinationsObject = [];
 
-$id = $_GET['id'];
 
-$destination = $manager->getDestinationById($id);
-$destinationsObtainedByLocation = $manager->getDestinationsByLocation($destination->getLocation());
+foreach ($destinations as $destinationData) {
+    $objectDestination = new Destination($destinationData);
+  
+    array_push($destinationsObject, $objectDestination);
+}
 
-$arrayOfTourOperatorsObject = [];
 
-foreach ($destinationsObtainedByLocation as $destination) {
-    $tourOperator = $manager->getTourOperatorById($destination->gettourOperatorId());
-    array_push($arrayOfTourOperatorsObject, $tourOperator);
+
+$tourOperatorManager = new TourOperatorManager($connexion);
+$operators = $tourOperatorManager->getOperator();
+
+
+
+
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+
+// Récupérer les informations de la destination correspondant à l'ID
+$destinationLocation = "";
+
+foreach ($destinationsObject as $destination) {
+    if ($destination->getId() == $id) {
+        $destinationLocation = $destination->getLocation(); // Supposons que la fonction pour récupérer le texte soit getLocation()
+        break;
+    }
+}
+
+$destinationTexte = "";
+
+foreach ($destinationsObject as $destination) {
+    if ($destination->getId() == $id) {
+        $destinationTexte = $destination->getTexte(); // Supposons que la fonction pour récupérer le texte soit getLocation()
+        break;
+    }
+}
+
+$destinationOperatorlogo = "";
+
+foreach ($destinationsObject as $destination) {
+    if ($destination->getId() == $id) {
+        $destinationOperatorlogo = $destination->getLogo(); // Supposons que la fonction pour récupérer le texte soit getLocation()
+        break;
+    }
+}
+if ($id_operator) {
+    // Requête pour récupérer les informations de l'opérateur
+    $query = "SELECT * FROM tour_operator WHERE id_operator = :id";
+    $statement = $connexion->prepare($query);
+    $statement->bindValue(':id', $id_operator);
+    $statement->execute();
+    
+    // Vérifiez si des résultats ont été trouvés
+    if ($statement->rowCount() > 0) {
+        // Récupérez les informations de l'opérateur
+        $operator_info = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        // // Affichez les informations de l'opérateur
+        // echo "Nom de l'opérateur : " . $operator_info['name'];
+        // echo "Description : " . $operator_info['logo'];
+        // // et ainsi de suite pour d'autres champs
+        
+    } else {
+        echo "Aucun opérateur trouvé avec cet ID.";
+    }
+} else {
+    echo "ID de l'opérateur non valide.";
 }
 
 
@@ -40,7 +99,7 @@ foreach ($destinationsObtainedByLocation as $destination) {
 <body>
 
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
+        <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
                 <a class="navbar-brand ms-5" href="index.php">
                     <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
@@ -57,7 +116,7 @@ foreach ($destinationsObtainedByLocation as $destination) {
                             <a class="nav-link text-info m-5" href="">Voyages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Opérateurs</a>
+                            <a class="nav-link text-info m-5" href="./operators.php">Opérateurs</a>
                         </li>
                         <li class="nav-item">
                             <div>
@@ -76,45 +135,55 @@ foreach ($destinationsObtainedByLocation as $destination) {
                                 }
                                 ?>
                             </div>
-                            <li class="nav-item">
+                        <li class="nav-item">
+                        <?php if (!empty($_SESSION['name'])) { ?>
+                                
+                                
                                 <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
-                            </li>
-                            <div>
 
+                            <?php  }else{ ?>
+                                
+
+                                <?php } ?>
+                            </li>
                         </li>
+                        <div>
+
+                            </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <section class="headerTop">
-        <div class=" d-flex justify-content-end">
-        <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;"><?= $destinationLocation ?></div><br>
+        <div class="">
+            <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;"><?= $destinationLocation ?></div><br>
+            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end" style="color: white;"><?= $destinationTexte ?></div><br>
+            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end"><img src="<?= $operator_info['logo'];?>" alt=""></div>
         </div>
-        <div class="d-flex align-items-end flex-column">
-
-
-            <button type="button" class="btn btn-primary text-warning mt-5 me-5"><strong>Découvrez nos offres Premium</strong></button>
-        </div>
-    </section>
-
-    <div class="container text-center mt-4 col-3">  
-    <div class="text-center fs-4">Choisissez votre tour Opérateur et partez pour <?= $destination->getLocation() ?></div><br>
+    </section><br>
     
-    <form class="text-center" method="post" action="./detailVoyage.php">
+    <div class="container text-center">  
+    <div class="text-center fs-3">Choisissez votre tour Opérateur et partez pour <?= $destinationLocation ?></div><br>
+    
+    <form class="text-center" method="get" action="./listeVoyage.php">
 
     <select id="operator" name="id" autocomplete="chooseoperator"
                 class="mt-2 form-select text-center fs-4">
                 <?php foreach ($arrayOfTourOperatorsObject as $tourOperator) { ?>
                     
-                    <option value="<?=$tourOperator->getid_operator()?>"> <?= $tourOperator->getName() ?></option>
+                    <option value="<?= $tourOperator->getid_operator() ?>"> <?= $tourOperator->getName() ?></option>
 
-                <?php }; ?>
+                <?php endforeach; ?>
             </select>
-    <input value="<?=$destination->getLocation()?>" type="hidden" name="location">
+    <input value="<?= $destination->getLocation() ?>" type="hidden" name="location">
     <button class="mt-3 btn btn-primary text-white text-center" type="submit">Allez au détail de votre voyage</button>
     </form>
     </div> 
+    </section>
+    
+
+  
 
     <footer class="d-flex align-items-end justify-content-center">
 
@@ -122,7 +191,7 @@ foreach ($destinationsObtainedByLocation as $destination) {
 
         <h4 class="text-white"><strong>Skyeagle.com Yacine Sylvain et fils © Copyright 2024</strong></h4>
     </footer>
- 
+
 
 
     <script src="./JavaScript/script.js"></script>

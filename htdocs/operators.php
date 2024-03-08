@@ -1,39 +1,33 @@
 <?php
-
 session_start();
-require './connexion/autoloader.php';
-require './connexion/connexion.php';
-require './connexion/message.php';
+include_once "./connexion/connexion.php";
+include_once "./connexion/autoloader.php";
 
-$TourOperatorconnexion = new TourOperatorManager($connexion);
-
-// Appeler getData() pour obtenir les données
-$listOperatorManager = $TourOperatorconnexion->getOperator();
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <!-- <link rel="stylesheet" href="./loader/loader.css"> -->
+    <link rel="stylesheet" href="./CSS/operators.css">
     <link rel="stylesheet" href="./CSS/listeVoyage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Opérateurs</title>
 </head>
 
 <body>
-
-
-
-
+    <!-- <div id="loader">
+<h1 class="textLoader">Chargement 
+    ...
+</h1>
+</div> -->
 
 
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
+        <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
                 <a class="navbar-brand ms-5" href="index.php">
                     <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
@@ -50,7 +44,7 @@ $listOperatorManager = $TourOperatorconnexion->getOperator();
                             <a class="nav-link text-info m-5" href="./accueil.php">Voyages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Opérateurs</a>
+                            <a class="nav-link text-info m-5" href="./operators.php">Opérateurs</a>
                         </li>
                         <li class="nav-item">
                             <div>
@@ -69,75 +63,74 @@ $listOperatorManager = $TourOperatorconnexion->getOperator();
                                 }
                                 ?>
                             </div>
-                            <li class="nav-item">
-                                <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
-                            </li>
-                            <div>
+                        <li class="nav-item">
+                            <?php if (!empty($_SESSION['name'])) { ?>
 
+
+                                <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
+
+                            <?php  } else { ?>
+
+
+                            <?php } ?>
                         </li>
+                        </li>
+                        <div>
+
+                            </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+    <section class="headerTop">
+        <div class="">
+            <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;">Partenaires</div><br>
+            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end" style="color: white;"></div><br>
+            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end"><img src="" alt=""></div>
+        </div>
+    </section>
 
-    <form action="./process/admin.php" method="get">
-<div class="container">
-      <div class="text-center">
-                
-              <label for="name" class="fs-3">Selectionner votre entreprise</label>
-                
-              <label for="name" class=""></label>
-                                
-              <select id="chooseoperator" name="id" autocomplete="chooseoperator"
-                class="text-center">
-                
-                <?php foreach ($listOperatorManager as $TourOperator) : ?>
+    <div class="anim">
+<h1 class="mt-3 font text-center">Voici nos partenaires opérateurs</h1>
+<p class="text-center fst-italic fw-bold mb-1">Nos partenaires opérateurs nous font confiance, 
+    ce qui témoigne de notre engagement et de notre fiabilité dans le domaine.</p></div>
 
-                    <option value="<?= $TourOperator->getid_operator(); ?>"><?= $TourOperator->getname(); ?>
-                    </option>
-                <?php endforeach; ?>
-                </select>
-
-
-                  <div class="">
-                       <button type="submit" class="btn btn-warning">Envoyé</button>
-                  </div>
-
-      </div>             
-      </div>
-  </form>
-  
-
- 
-    <form action="./process/admin.php" method="post">
-<div class="container">
-      <div class="text-center">
-                
-              <label for="name" class="fs-3">Enregistrez-vous</label>
-                
-              <label for="name" class=""></label>
-                  <div class="flex rounded-lg">
-                      <input type="text" name="name" id="name" autocomplete="name" class="form-control mt-5" placeholder="Leclerc">
-                  </div><br>
-
-                
-                  <div class="">
-                       <button type="submit" class="btn btn-warning">Envoyé</button>
-                  </div>
-
-      </div>             
-      </div>
-  </form>
-  
-
-
-    <footer class="d-flex align-items-end justify-content-center">
+<section class="container mb-4" style="height: 100%;">
+<div class="marquee">
+  <div class="slide">
+    <svg viewBox="0 0 24 24" src="./medias/logoComparators/leclerc.png">
+        <img src="./medias/logoComparators/leclerc.png" alt="">
+      
+    </svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <img src="./medias/logoComparators/fram.png" alt="">                       
+    </svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <img src="./medias/logoComparators/Thomas_Cook_Logo.png" alt="">
+    </svg>
+  </div>
+  <div class="slide">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <img src="./medias/logoComparators/leclerc.png" alt="">
+    </svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <img src="./medias/logoComparators/fram.png" alt="">
+    </svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <img src="./medias/logoComparators/Thomas_Cook_Logo.png" alt="">
+    </svg>
+  </div>
+</div>
+</section>
 
 
 
-        <h5 class="text-white">Skyeagle.com Sylvain & Yacine CORP. © Copyright 2024</h5>
-    </footer>
+
+
+
+
+
 
 
     <script src="./JavaScript/script.js"></script>
