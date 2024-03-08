@@ -174,7 +174,7 @@ if ($id_operator) {
                     
                     <option value="<?= $tourOperator->getid_operator() ?>"> <?= $tourOperator->getName() ?></option>
 
-                <?php endforeach; ?>
+                <?php } ?>
             </select>
     <input value="<?= $destination->getLocation() ?>" type="hidden" name="location">
     <button class="mt-3 btn btn-primary text-white text-center" type="submit">Allez au détail de votre voyage</button>
