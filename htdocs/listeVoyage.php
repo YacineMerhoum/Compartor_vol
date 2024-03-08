@@ -8,7 +8,7 @@ include_once "./connexion/autoloader.php";
 
 
 $manager = new Manager($connexion);
-// Récupération de l'id en GET
+
 $id = $_GET['id'];
 
 $destination = $manager->getDestinationById($id);
@@ -20,8 +20,6 @@ foreach ($destinationsObtainedByLocation as $destination) {
     $tourOperator = $manager->getTourOperatorById($destination->gettourOperatorId());
     array_push($arrayOfTourOperatorsObject, $tourOperator);
 }
-
-
 
 
 ?>
@@ -109,11 +107,11 @@ foreach ($destinationsObtainedByLocation as $destination) {
                 class="mt-2 form-select text-center fs-4">
                 <?php foreach ($arrayOfTourOperatorsObject as $tourOperator) { ?>
                     
-                    <option value="<?= $tourOperator->getid_operator() ?>"> <?= $tourOperator->getName() ?></option>
+                    <option value="<?=$tourOperator->getid_operator()?>"> <?= $tourOperator->getName() ?></option>
 
                 <?php }; ?>
             </select>
-    <input value="<?= $destination->getLocation() ?>" type="hidden" name="location">
+    <input value="<?=$destination->getLocation()?>" type="hidden" name="location">
     <button class="mt-3 btn btn-primary text-white text-center" type="submit">Allez au détail de votre voyage</button>
     </form>
     </div> 

@@ -178,7 +178,7 @@ $date_fr = $formatter->format($date);
         <h3 class="font ">Ce voyage est disponible avec :</h3>
     </div>
     <div class="operators d-flex justify-content-center p-5">
-        <a href="<?= $destinationFinal->getLink() ?>" target="_blank"><img src="<?= $destinationFinal->getLogo() ?>" alt="" style="height:80px;"></a>
+        <a href="<?= $destinationFinal->getLink() ?>" target="_blank"><img src="<?= $destination->getLogo() ?>" alt="" style="height:80px;"></a>
     </div>
 
     <div class="d-flex flex-wrap justify-content-around my-5" id="cardsReview">
