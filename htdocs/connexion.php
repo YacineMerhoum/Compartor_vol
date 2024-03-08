@@ -10,6 +10,14 @@ $TourOperatorconnexion = new TourOperatorManager($connexion);
 // Appeler getData() pour obtenir les données
 $listOperatorManager = $TourOperatorconnexion->getOperator();
 
+
+if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
+    $userName = $_SESSION['name'];
+} else {
+    $userName = ''; // Si le nom n'est pas défini, initialisez-le à une chaîne vide
+}
+
+
 ?>
 
 
@@ -27,13 +35,8 @@ $listOperatorManager = $TourOperatorconnexion->getOperator();
 
 <body>
 
-
-
-
-
-
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
+        <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
                 <a class="navbar-brand ms-5" href="index.php">
                     <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
@@ -50,17 +53,14 @@ $listOperatorManager = $TourOperatorconnexion->getOperator();
                             <a class="nav-link text-info m-5" href="./accueil.php">Voyages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Opérateurs</a>
+                            <a class="nav-link text-info m-5" href="./operators.php">Opérateurs</a>
                         </li>
                         <li class="nav-item">
                             <div>
                                 <?php
-                                if (session_status() !== PHP_SESSION_ACTIVE) {
-                                    session_start();
-                                }
-                                if (isset($_SESSION['name'])) {
+                                if (!empty($_SESSION['name'])) {
                                 ?>
-                                    <p class="nav-link text-warning m-5"><?php echo $_SESSION['name']; ?></p>
+                                    <p class="nav-link text-warning m-5"><?= $userName; ?></p>
                                 <?php
                                 } else {
                                 ?>
@@ -69,79 +69,104 @@ $listOperatorManager = $TourOperatorconnexion->getOperator();
                                 }
                                 ?>
                             </div>
-                            <li class="nav-item">
-                                <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
-                            </li>
-                            <div>
+                        <li class="nav-item">
+                            <?php if (!empty($_SESSION['name'])) { ?>
 
+
+                                <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
+
+                            <?php  } else { ?>
+
+
+                            <?php } ?>
                         </li>
+                        <div>
+
+                            </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
+    <section class="headerTop">
+        <div class=" d-flex justify-content-end"></div>
+        <div class="d-flex align-items-end flex-column">
+        </div>
+    </section>
+    
+    <section class="sectionCards1" >
     <form action="./process/admin.php" method="get">
-<div class="container">
-      <div class="text-center">
-                
-              <label for="name" class="fs-3">Selectionner votre entreprise</label>
-                
-              <label for="name" class=""></label>
-                                
-              <select id="chooseoperator" name="id" autocomplete="chooseoperator"
-                class="text-center">
-                
-                <?php foreach ($listOperatorManager as $TourOperator) : ?>
+        <div class="container d-flex justify-content-center">
+            
+            <div class="col-6 text-center">
+                            
 
-                    <option value="<?= $TourOperator->getid_operator(); ?>"><?= $TourOperator->getname(); ?>
-                    </option>
-                <?php endforeach; ?>
+                <label for="name" class="mt-3 fs-3 text-center">Connectez votre société <p class="fs-6 ">(réservez aux operateurs)</p></label>
+
+               
+                <div class="grid text-center border-1">
+                <select id="chooseoperator" name="name" autocomplete="chooseoperator" class="g-col-4 form-select mt-1 text-center">
+
+                    <?php foreach ($listOperatorManager as $TourOperator) : ?>
+                        <option value="<?= $TourOperator->getname(); ?>"><?= $TourOperator->getname(); ?></option>
+                    <?php endforeach; ?>
                 </select>
 
 
-                  <div class="">
-                       <button type="submit" class="btn btn-warning">Envoyé</button>
-                  </div>
+                <div class="d-flex justify-content-center g-col-4">
+                    <button type="submit" class="mt-3 btn btn-warning">Connexion</button>
+                </div>
 
-      </div>             
-      </div>
-  </form>
-  
-
- 
-    <form action="./process/admin.php" method="post">
-<div class="container">
-      <div class="text-center">
-                
-              <label for="name" class="fs-3">Enregistrez-vous</label>
-                
-              <label for="name" class=""></label>
-                  <div class="flex rounded-lg">
-                      <input type="text" name="name" id="name" autocomplete="name" class="form-control mt-5" placeholder="Leclerc">
-                  </div><br>
-
-                
-                  <div class="">
-                       <button type="submit" class="btn btn-warning">Envoyé</button>
-                  </div>
-
-      </div>             
-      </div>
-  </form>
-  
+            </div>
+            </div>
+        </div>
+    </form>
 
 
-    <footer class="d-flex align-items-end justify-content-center">
+    <div class="container mt-4">
+        <div class="d-flex justify-content-center fs-4">
+            <p>Bonjour,&nbsp</p>
+            <?php
+            if (!empty($_SESSION['name'])) {
+            ?>
+                <p class="fs-4"><?= $userName; ?></p>
+            <?php
+            } else {
+            ?>
+            <?php
+            }
+            ?>
+        </div>
+
+        <form action="./process/accueil.php" method="post">
+            <div class="container d-flex justify-content-center  text-center">
+
+                <div class="col-5">
+
+                    <label for="name" class=" fs-4 text-center">Veuillez entrez votre code premium reçu par mail</label>
+                    <label for="name" class=" fs-6 fst-italic text-center">Si vous ne l'avez pas reçu, veuillez contacter notre service client.</label>
+
+                    <input type="text" name="code" id="code" autocomplete="code" class="mt-3 form-control" placeholder="12345">
+                    <div class=""><button type="submit" class="mt-2 btn btn-warning">Premium</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        </section>
+
+
+        <footer class="d-flex align-items-end justify-content-center">
 
 
 
-        <h5 class="text-white">Skyeagle.com Sylvain & Yacine CORP. © Copyright 2024</h5>
-    </footer>
+            <h5 class="text-white">Skyeagle.com Sylvain & Yacine CORP. © Copyright 2024</h5>
+        </footer>
 
 
-    <script src="./JavaScript/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="./JavaScript/script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -15,6 +15,7 @@ class TourOperator {
         if($data['id_operator']){
             $this->setid($data['id_operator']);
         }      
+
      } 
 
     public function hydrate(array $data){

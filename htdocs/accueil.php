@@ -19,9 +19,15 @@ foreach ($destinations as $destinationData) {
     array_push($destinationsObject, $objectDestination);
 } 
 
-
+if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
+    $userName = $_SESSION['name'];
+} else {
+    $userName = ''; // Si le nom n'est pas défini, initialisez-le à une chaîne vide
+}
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +37,7 @@ foreach ($destinations as $destinationData) {
     <link rel="stylesheet" href="./CSS/accueil.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Connexion admin</title>
 </head>
 
 <body>
@@ -61,7 +67,7 @@ foreach ($destinations as $destinationData) {
                                 <?php
                                 if (!empty($_SESSION['name'])) {
                                 ?>
-                                    <!-- <p class="nav-link text-warning m-5"><?php echo $_SESSION['name']; ?></p> -->
+                                    <p class="nav-link text-warning m-5"><?= $userName; ?></p>
                                 <?php
                                 } else {
                                 ?>

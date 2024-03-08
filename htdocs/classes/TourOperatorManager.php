@@ -24,5 +24,23 @@ class TourOperatorManager
         return $datalistOperator;
     }
 
+
+
+    public function getOperatorname($name){
+        $preparedRequest = $this->connexion->prepare("SELECT * FROM tour_operator WHERE name = ?");
+        $preparedRequest->execute([$name]);
+        $operatorData = $preparedRequest->fetch(PDO::FETCH_ASSOC);
     
+        
+            $operatorName = $operatorData['name'];
+    
+            return $operatorName;
+       
+    }
+
+
+
 }   
+
+
+
