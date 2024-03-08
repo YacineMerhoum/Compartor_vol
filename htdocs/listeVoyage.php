@@ -51,7 +51,7 @@ $destination = $destinationsObtainedByLocation[0];
                             <a class="nav-link active text-warning m-5" aria-current="page" href="">Promotion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info m-5" href="">Voyages</a>
+                            <a class="nav-link text-info m-5" href="./accueil.php">Voyages</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-info m-5" href="./operators.php">Opérateurs</a>
@@ -74,16 +74,16 @@ $destination = $destinationsObtainedByLocation[0];
                                 ?>
                             </div>
                         <li class="nav-item">
-                        <?php if (!empty($_SESSION['name'])) { ?>
-                                
-                                
+                            <?php if (!empty($_SESSION['name'])) { ?>
+
+
                                 <a class="nav-link text-info m-5" href="./process/logout.php">Déconnexion</a>
 
-                            <?php  }else{ ?>
-                                
+                            <?php  } else { ?>
 
-                                <?php } ?>
-                            </li>
+
+                            <?php } ?>
+                        </li>
                         </li>
                         <div>
 
@@ -93,34 +93,56 @@ $destination = $destinationsObtainedByLocation[0];
             </div>
         </nav>
     </header>
-    <section class="headerTop">
+    <section class="headerTop" style="background-image: url('<?= $destination->getHeaderPhoto()?>');">
         <div class="">
             <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;"><?= $destination->getLocation() ?></div><br>
-            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end" style="color: white;"><?= "toto" ?></div><br>
+            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end font" style="color: white;"><?= $destination->getTexte() ?></div><br>
         </div>
     </section><br>
-    
-    <div class="container text-center">  
-    <div class="text-center fs-3">Choisissez votre tour Opérateur et partez pour <?= $destination->getLocation() ?></div><br>
-    
-    <form class="text-center" method="post" action="./detailVoyage.php">
 
-    <select id="operator" name="id" autocomplete="chooseoperator"
-                class="mt-2 form-select text-center fs-4">
-                <?php foreach ($arrayOfTourOperatorsObject as $tourOperator) { ?>
-                    
-                    <option value="<?= $tourOperator->getid_operator() ?>"> <?= $tourOperator->getName() ?></option>
 
-                <?php } ?>
-            </select>
-    <input value="<?= $destination->getLocation() ?>" type="hidden" name="location">
-    <button class="mt-3 btn btn-primary text-white text-center" type="submit">Allez au détail de votre voyage</button>
-    </form>
-    </div> 
+
+    <div class="container text-center mt-3">
+        <div class="text-center fs-3">
+            <h1 class="fs-7 font mt-2">Choisissez votre tour Opérateur et partez pour <?= $destination->getLocation() ?></h1>
+
+        </div>
+
+        <form class="text-center" method="post" action="./detailVoyage.php">
+
+
+
+            <div class="container text-center">
+                <div class="row align-items-center">
+                    <div class="col-4"></div>
+
+
+                    <div class="col-4">
+
+                        <select id="operator" name="id" autocomplete="chooseoperator" class="mt-2 form-select text-center fs-4">
+                            <?php foreach ($arrayOfTourOperatorsObject as $tourOperator) { ?>
+
+                                <option value="<?= $tourOperator->getid_operator() ?>"> <?= $tourOperator->getName() ?></option>
+
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <input value="<?= $destination->getLocation() ?>" type="hidden" name="location">
+            <button class="mt-3 btn btn-primary text-white text-center" type="submit">Allez au détail de votre voyage</button>
+        </form>
+    </div>
     </section>
-    
 
-  
+
+
 
     <footer class="d-flex align-items-end justify-content-center">
 

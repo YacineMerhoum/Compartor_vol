@@ -12,6 +12,7 @@ class Manager
         $preparedRequest = $this->connexion->prepare("SELECT * 
         FROM `destination` 
         JOIN `tour_operator` ON `destination`.`tour_operator_id` = `tour_operator`.`id_operator`
+        ORDER BY RAND()
         LIMIT 6;
         ");
         $preparedRequest->execute([
@@ -162,6 +163,7 @@ class Manager
         return $arrayOfDestinationsObject;
     }
 
+    
     
 
     }

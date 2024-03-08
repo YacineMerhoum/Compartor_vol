@@ -83,7 +83,7 @@ include_once "./connexion/autoloader.php";
             </div>
         </nav>
     </header>
-    <section class="headerTop">
+    <section class="headerTop" style="background-image: url('https://media.oovatu.com/pano-2049/voyager-emirates_93218.jpg');">
         <div class="">
             <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;">Partenaires</div><br>
             <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end" style="color: white;"></div><br>
@@ -123,6 +123,19 @@ include_once "./connexion/autoloader.php";
   </div>
 </div>
 </section>
+
+<div class="d-flex justify-content-center mt-5">
+<img class="rounded-circle" src="./medias/photodev.png" alt="" style="height: 600px;">
+</div>
+<div class="d-flex justify-content-center mt-5">
+<p class="fst-italic fw-bold">"Quand la tempête et la foudre s'associent, le ciel devient le théâtre d'une puissance déchaînée"</p>
+</div>
+<div class="d-flex justify-content-center mt-5">
+<h1 class="fst-italic fw-bold">YM-SM</h1>
+</div>
+
+
+
 
 
 

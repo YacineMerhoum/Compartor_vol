@@ -184,7 +184,7 @@ $date_fr = $formatter->format($date);
         <h3 class="font ">avec notre partenaire : </h3>
     </div>
     <div class="operators d-flex justify-content-center p-3">
-        <
+        
         <a href="<?= $tourOperator->getLink() ?>" target="_blank"><img src="<?= $tourOperator->getLogo() ?>" alt="" style="height:80px;"></a>
     </div>
     
