@@ -56,14 +56,6 @@ $location = $_POST['location'];
 
 $destinationFinal = $manager->getDestinationByOperatorIdAndDestinationLocation($id, $location);
 
-
-
-
-
-
-
-
-
 ?>
 <?php
 // Timezone pour le formulaire 
@@ -187,7 +179,7 @@ $date_fr = $formatter->format($date);
         <h3 class="font ">Ce voyage est disponible au prix de :</h3>
     </div>
     <div class="d-flex justify-content-center mt-1">
-        <h1 class="text-info"><?= $destination->getPrice()?><span class="text-warning"> €</span>
+        <h1 class="text-info"><?= $destinationFinal->getPrice()?><span class="text-warning"> €</span>
         <span class="text-black fw-bold detailSpan">/pers.</span>
     </h1>                               
     </div>

@@ -9,77 +9,15 @@ include_once "./connexion/autoloader.php";
 
 
 $manager = new Manager($connexion);
-$destinations = $manager->getAllDestination();
-$destinationsObject = [];
+$destinationsObtainedByLocation = $manager->getDestinationsByLocation($_GET['location']);
+$arrayOfTourOperatorsObject = [];
 
-
-foreach ($destinations as $destinationData) {
-    $objectDestination = new Destination($destinationData);
-  
-    array_push($destinationsObject, $objectDestination);
+foreach ($destinationsObtainedByLocation as $destination) {
+    $tourOperator = $manager->getTourOperatorById($destination->gettourOperatorId());
+    array_push($arrayOfTourOperatorsObject, $tourOperator);
 }
 
-
-
-$tourOperatorManager = new TourOperatorManager($connexion);
-$operators = $tourOperatorManager->getOperator();
-
-
-
-
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-
-// Récupérer les informations de la destination correspondant à l'ID
-$destinationLocation = "";
-
-foreach ($destinationsObject as $destination) {
-    if ($destination->getId() == $id) {
-        $destinationLocation = $destination->getLocation(); // Supposons que la fonction pour récupérer le texte soit getLocation()
-        break;
-    }
-}
-
-$destinationTexte = "";
-
-foreach ($destinationsObject as $destination) {
-    if ($destination->getId() == $id) {
-        $destinationTexte = $destination->getTexte(); // Supposons que la fonction pour récupérer le texte soit getLocation()
-        break;
-    }
-}
-
-$destinationOperatorlogo = "";
-
-foreach ($destinationsObject as $destination) {
-    if ($destination->getId() == $id) {
-        $destinationOperatorlogo = $destination->getLogo(); // Supposons que la fonction pour récupérer le texte soit getLocation()
-        break;
-    }
-}
-if ($id_operator) {
-    // Requête pour récupérer les informations de l'opérateur
-    $query = "SELECT * FROM tour_operator WHERE id_operator = :id";
-    $statement = $connexion->prepare($query);
-    $statement->bindValue(':id', $id_operator);
-    $statement->execute();
-    
-    // Vérifiez si des résultats ont été trouvés
-    if ($statement->rowCount() > 0) {
-        // Récupérez les informations de l'opérateur
-        $operator_info = $statement->fetch(PDO::FETCH_ASSOC);
-        
-        // // Affichez les informations de l'opérateur
-        // echo "Nom de l'opérateur : " . $operator_info['name'];
-        // echo "Description : " . $operator_info['logo'];
-        // // et ainsi de suite pour d'autres champs
-        
-    } else {
-        echo "Aucun opérateur trouvé avec cet ID.";
-    }
-} else {
-    echo "ID de l'opérateur non valide.";
-}
-
+$destination = $destinationsObtainedByLocation[0];
 
 ?>
 
@@ -157,16 +95,15 @@ if ($id_operator) {
     </header>
     <section class="headerTop">
         <div class="">
-            <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;"><?= $destinationLocation ?></div><br>
-            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end" style="color: white;"><?= $destinationTexte ?></div><br>
-            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end"><img src="<?= $operator_info['logo'];?>" alt=""></div>
+            <div class="titleHeader mt-3 me-5 d-flex justify-content-end font" style="color: white;"><?= $destination->getLocation() ?></div><br>
+            <div class="fs-5 bs-success-text-emphasis me-5 d-flex justify-content-end" style="color: white;"><?= "toto" ?></div><br>
         </div>
     </section><br>
     
     <div class="container text-center">  
-    <div class="text-center fs-3">Choisissez votre tour Opérateur et partez pour <?= $destinationLocation ?></div><br>
+    <div class="text-center fs-3">Choisissez votre tour Opérateur et partez pour <?= $destination->getLocation() ?></div><br>
     
-    <form class="text-center" method="get" action="./listeVoyage.php">
+    <form class="text-center" method="post" action="./detailVoyage.php">
 
     <select id="operator" name="id" autocomplete="chooseoperator"
                 class="mt-2 form-select text-center fs-4">
