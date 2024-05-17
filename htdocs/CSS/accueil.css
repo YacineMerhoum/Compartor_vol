@@ -76,16 +76,48 @@ footer {
   height: 750px;
   font-family: "Oswald", sans-serif;
 }
-/* @media only screen and (max-width: 768px) {
-  footer {
-    height: 500px; 
+
+@media (max-width: 990px) {
+  #navbarNav , .navbar-toggler{
+    display: none !important;
+    
   }
 }
 
-
-@media only screen and (max-width: 576px) {
-  footer {
-    height: 300px; 
-    background-position: center; 
+@media (max-width: 744px) {
+  /* IPHONE NORMAL  */
+  .titleHeader{
+    font-size: 50px;
+    color: #0d6efd;
+    text-align: center;
+    margin-left: 15% !important;
   }
-} */
+  #buttonAccueil{
+    margin-right: 25% !important;
+  }
+  .headerTop {
+    height: 350px;
+  }
+  .card-body {
+    height: 5%;
+    
+  }
+  #cardsVoyage {
+
+    margin-left: -20px !important;
+
+  }
+
+  #logoImage {
+    height:  143px !important;
+  }
+}
+@media (min-width: 376px) and (max-width: 744px) {
+  /* IPHONE PRO MAX  */
+  #cardsVoyage {
+
+    margin-left: -7px !important;
+
+  }
+
+}

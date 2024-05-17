@@ -163,6 +163,16 @@ class Manager
         return $arrayOfDestinationsObject;
     }
 
+
+    public function addDestination($location, $price)
+    {
+        $preparedRequest = $this->connexion->prepare("INSERT INTO `destination`(`location`, `price`) VALUES (?,?)");
+        $preparedRequest->execute([
+            $location,
+            $price
+        ]);
+    }
+
     
     
 

@@ -4,7 +4,7 @@
  require_once '../connexion/connexion.php';
 //  require_once "../connexion/debug.php";
 require_once '../connexion/autoloader.php';
-require_once '../connexion/message.php';
+
 
 $TourOperatorManagers = new TourOperatorManager($connexion);
 
@@ -18,12 +18,12 @@ if (!empty($_GET['name'])) {
    
     if ($TourOperators) {
         $_SESSION['name'] = $TourOperators;
-        header('Location: ../connexion.php?');
+        header('Location: ../connexion.php');
         exit(); 
     
     } else {
      
-        header('Location: ../connexion.php?');
+        header('Location: ../accueil.php');
 
     }
 }

@@ -87,7 +87,7 @@ $date_fr = $formatter->format($date);
         <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
                 <a class="navbar-brand ms-5" href="index.php">
-                    <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
+                    <img id="logoImage" src="./medias/logo_sky_eagle.png" style="height: 90px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -151,9 +151,9 @@ $date_fr = $formatter->format($date);
 
 
 
-    <div class="d-flex justify-content-center p-5">
-        <div class="">
-            <iframe class="rounded-4 shadow-lg " src="<?= $destinationFinal->getGps() ?>" width="800" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div id="googlemap" class="d-flex justify-content-center p-5">
+        <div id="">
+            <iframe id="map" class="rounded-4 shadow-lg " src="<?= $destinationFinal->getGps() ?>" width="800" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
     <div class="d-flex justify-content-center">
@@ -171,7 +171,7 @@ $date_fr = $formatter->format($date);
     </div>
 
 
-    <div class="card mx-auto mt-3 cardPrice" style="width: 34rem;">
+    <div id="cardPrice" class="card mx-auto mt-3 cardPrice" style="width: 34rem;">
     <div class="d-flex justify-content-center mt-5">
         <h3 class="font ">Ce voyage est disponible au prix de :</h3>
     </div>

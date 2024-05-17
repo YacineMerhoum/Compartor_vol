@@ -10,7 +10,7 @@ ajaxs.addEventListener("submit", async function(event){
 
     let formData = new FormData()
     
-    formData.append("author", inputName)
+    formData.append("author", inputName)*
     formData.append("date", inputDate)
     formData.append("message", inputMessage)
     formData.append("note", inputNote)

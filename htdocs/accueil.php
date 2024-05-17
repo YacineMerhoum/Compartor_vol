@@ -46,7 +46,7 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
         <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
             <div class="container-fluid">
                 <a class="navbar-brand ms-5" href="index.php">
-                    <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
+                    <img id="logoImage" src="./medias/logo_sky_eagle.png" style="height: 90px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -102,7 +102,7 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
         <div class="d-flex align-items-end flex-column">
 
 
-            <button type="button" class="btn btn-primary text-warning mt-5 me-5" onclick="scrollToMiddle()"><strong>Découvrez nos offres</strong></button>
+            <button type="button" id="buttonAccueil" class="btn btn-primary text-warning mt-5 me-5" onclick="scrollToMiddle()"><strong>Découvrez nos offres</strong></button>
         </div>
     </section>
     <!-- 
@@ -112,7 +112,7 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
             <div class="row">
                 <?php foreach ($destinationsObject as $destination) { ?>
 
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div id="cardsVoyage" class="col-lg-4 col-md-6 col-sm-12">
 
                         <a href="./listeVoyage.php?location=<?= $destination->getLocation() ?>">
 

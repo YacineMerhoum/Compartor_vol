@@ -48,16 +48,42 @@ footer {
 .checked {
   color: orange;
 }
-/* @media only screen and (max-width: 768px) {
-  footer {
-    height: 500px; 
+@media (max-width: 989px) {
+  #navbarNav , .navbar-toggler {
+    display: none !important;
   }
+  .headerTop{
+    height: 210px;
+  }
+  .titleHeader{
+    color: #0f7e97 !important;
+    align-items: center !important;
+  }
+  #googlemap {
+    margin-right: 300px !important;
+    margin-left: 300px !important;
+  }
+  #cardPrice{
+    
+    width: calc(100% - 20px) !important;
+  
+  }
+  #createReview{
+    width: 300px;
+    margin-left: -100px;
+  }
+  footer {
+    height: 200px;
+  }
+  #logoImage {
+    height:  120px !important;
+  }
+  #map {
+    height: 200px !important;
+    width: 350px;
+    margin-left: -320px;
+  }
+
+ 
+  
 }
-
-
-@media only screen and (max-width: 576px) {
-  footer {
-    height: 300px; 
-    background-position: center; 
-  }
-} */

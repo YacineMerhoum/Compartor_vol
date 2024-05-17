@@ -45,5 +45,13 @@ to {
 button accueil */
 
 
+@media (max-width: 768px) {
+    
+      #logo{ 
+        margin-top: 150px;
+        height: 200px !important;
+        
+  }
 
+}
 

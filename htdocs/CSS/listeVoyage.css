@@ -32,3 +32,25 @@ body{
     .font {
       font-family: "Oswald", sans-serif;
     }
+
+    @media (max-width: 989px) {
+      #navbarNav , .navbar-toggler {
+        display: none !important;
+      }
+      .headerTop{
+        height: 210px;
+      }
+      .titleHeader{
+        color: #0f7e97 !important;
+        align-items: center !important;
+      }
+      #logoImage {
+        height:  120px !important;
+      }
+      #operator {
+        width: 200px;
+        margin-left: -50px;
+      }
+
+      
+    }

@@ -18,6 +18,14 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
 }
 
 
+    $addDestination = new Manager($connexion);
+    if (!empty($_POST["location"]) && !empty($_POST["price"])) {
+        $addDestination->addDestination(
+            $_POST["location"],
+            $_POST["price"]
+        );
+    }
+
 ?>
 
 
@@ -35,9 +43,9 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
 
 <body>
 
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-white" style="height: 180px;">
-            <div class="container-fluid">
+    <header class="">
+        <nav class=" navbar navbar-expand-lg bg-body-white" style="height: 180px;">
+            <div class="container-fluid ">
                 <a class="navbar-brand ms-5" href="index.php">
                     <img src="./medias/logo_sky_eagle.png" style="height: 90px;">
                 </a>
@@ -45,7 +53,7 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav fs-5">
+                    <ul class="navbar-nav fs-5 ">
                         <li class="nav-item">
                             <a class="nav-link active text-warning m-5" aria-current="page" href="">Promotion</a>
                         </li>
@@ -89,7 +97,7 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
         </nav>
     </header>
 
-    <section class="headerTop">
+    <section class="headerTop" style="background-image: url(./medias/header/DubaiHeader.jpg)">
         <div class=" d-flex justify-content-end"></div>
         <div class="d-flex align-items-end flex-column">
         </div>
@@ -102,7 +110,7 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
             <div class="col-6 text-center">
                             
 
-                <label for="name" class="mt-3 fs-3 text-center">Connectez votre société <p class="fs-6 ">(réservez aux operateurs)</p></label>
+                <label for="name" class="mt-3 fs-3 text-center font">Connectez votre société <p class="fs-6 font">(réservez aux operateurs)</p></label>
 
                
                 <div class="grid text-center border-1">
@@ -126,7 +134,7 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
 
     <div class="container mt-4">
         <div class="d-flex justify-content-center fs-4">
-            <p>Bonjour,&nbsp</p>
+            <p class="font"> Bonjour,&nbsp</p>
             <?php
             if (!empty($_SESSION['name'])) {
             ?>
@@ -144,17 +152,39 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
 
                 <div class="col-5">
 
-                    <label for="name" class=" fs-4 text-center">Veuillez entrez votre code premium reçu par mail</label>
-                    <label for="name" class=" fs-6 fst-italic text-center">Si vous ne l'avez pas reçu, veuillez contacter notre service client.</label>
+                    <label for="name" class=" fs-4 text-center font">Veuillez entrez votre code premium reçu par mail</label>
+                    <label for="name" class=" fs-6 fst-italic text-center font">Si vous ne l'avez pas reçu, veuillez contacter notre service client.</label>
 
                     <input type="text" name="code" id="code" autocomplete="code" class="mt-3 form-control" placeholder="12345">
-                    <div class=""><button type="submit" class="mt-2 btn btn-warning">Premium</button>
+                    <div class=""><button type="submit" id="butonCo" class="mt-2 btn btn-warning">Premium</button>
                     </div>
 
                 </div>
             </div>
         </form>
         </section>
+
+
+<h1 class="">Ajouter une destination</h1>
+<form action="" method="post">
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">Location</span>
+  <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+</div>
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">Price</span>
+  <input type="text" class="form-control" id="price" name="price" placeholder="Price">
+</div>
+<button type="submit">Créer une destination</button>
+</form>
+
+
+
+
+
+
+
+
 
 
         <footer class="d-flex align-items-end justify-content-center">
@@ -164,7 +194,7 @@ if (!empty($_SESSION['name']) && is_string($_SESSION['name'])) {
             <h5 class="text-white">Skyeagle.com Sylvain & Yacine CORP. © Copyright 2024</h5>
         </footer>
 
-
+        <script src="./JavaScript/connexion.js"></script>
         <script src="./JavaScript/script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

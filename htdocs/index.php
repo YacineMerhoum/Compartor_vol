@@ -16,7 +16,7 @@ session_start();
 
 <body>
     <div class="d-flex justify-content-center  logoAccueil" style="margin-top: 10%;">
-        <img src="./medias/logo_transparant.png" style="height: 250px;" class="align-self-center">
+        <img id="logo" src="./medias/logo_transparant.png" style="height: 250px;" class="align-self-center">
     </div>
     <div class="d-flex justify-content-center box-3 mt-5">
         
